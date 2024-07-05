@@ -24,13 +24,8 @@ this e-commerce bookstore is a web application developed using React. It provide
 
 ### Links
 
-<<<<<<< HEAD
-- Solution URL: [Solution URL](https://github.com/halelite/E-commerce-bookstore.git)
-- Live Site URL: [Site URL](https://your-live-site-url.com)
-=======
 - Solution URL: [Solution URL](https://your-solution-url.com)
 - Live Site URL: [Site URL](https://halelite.github.io/E-commerce-bookstore/)
->>>>>>> gh-pages
 
 ## My process
 
