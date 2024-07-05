@@ -27,7 +27,7 @@ this e-commerce bookstore is a web application developed using React. It provide
 ### Links
 
 - Solution URL: [Solution URL](https://your-solution-url.com)
-- Live Site URL: [Site URL](https://your-live-site-url.com)
+- Live Site URL: [Site URL](https://halelite.github.io/E-commerce-bookstore/)
 
 ## My process
 
