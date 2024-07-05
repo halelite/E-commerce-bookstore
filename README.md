@@ -20,13 +20,11 @@ this e-commerce bookstore is a web application developed using React. It provide
 
 ### Screenshot
 
-<div style="text-align: center;">
 ![Design preview for the E-commerce product page](./public/Screenshot.jpeg)
-</div>
 
 ### Links
 
-- Solution URL: [Solution URL](https://your-solution-url.com)
+- Solution URL: [Solution URL](https://github.com/halelite/E-commerce-bookstore.git)
 - Live Site URL: [Site URL](https://your-live-site-url.com)
 
 ## My process
@@ -41,5 +39,5 @@ this e-commerce bookstore is a web application developed using React. It provide
 
 ## Author
 
-- Frontend Mentor - [@halelite](https://www.frontendmentor.io/profile/yourusername)
 - LinkedIn - [Hale Sheikhi](https://www.linkedin.com/in/hale-sheikhi/)
+- Frontend Mentor - [@halelite](https://www.frontendmentor.io/profile/yourusername)
