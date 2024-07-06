@@ -11,8 +11,6 @@ import star from "../assets/icons/icon-star.svg";
 
 function BestsellerLists() {
 
-    const API_KEY = "AIzaSyB9QR79cHEcQfklBeyQOwgd2OW2ulBFSEs";
-
     const {dispatch} = useContext(GobalContext);
     const [books, setBooks] = useState([]);
 
