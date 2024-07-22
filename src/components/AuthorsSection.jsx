@@ -11,7 +11,7 @@ function AuthorsSection() {
     const [authors, setAuthors] = useState([]);
 
     useEffect(() => {
-        fetch('data/author.json')
+        fetch(`${process.env.PUBLIC_URL}/data/author.json`)
             .then(res => {
                 if (res.ok) {
                     return res.json();

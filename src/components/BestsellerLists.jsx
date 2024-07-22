@@ -39,7 +39,7 @@ function BestsellerLists() {
         })
         .catch(err => console.log(err)) */
 
-        fetch('data/book.json')
+        fetch(`${process.env.PUBLIC_URL}/data/book.json`)
             .then(res => {
                 if (res.ok) {
                     return res.json();
