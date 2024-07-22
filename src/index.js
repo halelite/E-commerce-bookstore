@@ -6,7 +6,7 @@ import { GlobalProvider } from './context/auth-context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <HashRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter>
         <GlobalProvider>
             <App />
         </GlobalProvider>
