@@ -231,6 +231,10 @@ body {
   border-left: solid 1px #aaa;
 }
 
+.pages ul li a.active {
+  color: #DEA01E;
+}
+
 .pages ul li a:hover {
   color: var(--orange);
 }
@@ -668,6 +672,10 @@ body {
   margin-bottom: 8px;
 }
 
+.footer-item a:hover {
+  color: #eee;
+}
+
 .follow {
   margin-right: 35px;
 }
@@ -683,6 +691,22 @@ body {
 
 .follow .social-icons a {
   margin-right: 10px;
+}
+
+.follow .social-icons a:first-child:hover {
+  content: url('./assets/icons/icon-facebook2.svg');
+}
+
+.follow .social-icons a:nth-child(2):hover {
+  content: url('./assets/icons/icon-twitter2.svg');
+}
+
+.follow .social-icons a:nth-child(3):hover {
+  content: url('./assets/icons/icon-pinterest2.svg');
+}
+
+.follow .social-icons a:nth-child(4):hover {
+  content: url('./assets/icons/icon-instagram2.svg');
 }
 
 /* login form css starts here */
@@ -783,7 +807,6 @@ form button {
 
 .product-wrap {
   display: flex;
-  margin-bottom: 25px;
   margin-top: 8px;
   align-items: center;
   justify-content: stretch;
@@ -887,6 +910,11 @@ form button {
   color: #2F4858;
   font-size: 1.2rem;
   font-weight: 700;
+  text-align: start;
+}
+
+.categories-section #price {
+  text-align: start;
 }
 
 .all-list {
@@ -907,6 +935,13 @@ form button {
 /* cart section */
 .carts-section {
   margin: 50px 0;
+}
+
+.carts-section > p {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2F4858;
 }
 
 .main-cart {
@@ -947,7 +982,6 @@ form button {
 .final-check {
   width: 250px;
   height: 150px;
-  background-color: #aaa;
   margin-right: 20px;
   text-align: center;
   background-color: #2F4858;
@@ -1157,6 +1191,10 @@ form button {
     z-index: 900;
   }
 
+  .active {
+    transform: translateX(0);
+  }
+
   .pages ul {
     display: flex;
     flex-direction: column;
@@ -1283,13 +1321,42 @@ form button {
     margin-right: 0;
   }
 
-    .login-container,
-    .register-container {
-      width: 100%;
-      height: 100vh;
-      border-radius: 0;
-      padding: 68px 20px;
-      box-shadow: none;
-    }
+  .login-container,
+  .register-container {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    padding: 68px 20px;
+    box-shadow: none;
+  }
+
+  /* product info css - mobile view */
+  .product-wrap {
+    flex-direction: column;
+  }
+
+  .productInfo-wrap {
+    margin-top: 15px;
+  }
+
+  /* cart css - mobile view */
+  .carts-section {
+    margin: 30px 0;
+  }
+
+  .main-cart {
+    flex-direction: column;
+  }
+
+  .main-cart ul li {
+    margin-bottom: 0;
+  }
+
+  .final-check {
+    width: 100%;
+    height: 150px;
+    margin-right: 0;
+    margin-top: 20px;
+  }
 
 }
