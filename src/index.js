@@ -6,9 +6,10 @@ import { GlobalProvider } from './context/auth-context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <HashRouter>
-        <GlobalProvider>
+    <GlobalProvider>
+        <HashRouter>
             <App />
-        </GlobalProvider>
-    </HashRouter>
+        </HashRouter>
+    </GlobalProvider>
+    
 );
