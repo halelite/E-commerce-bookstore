@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/E-commerce-bookstore/static/css/main.1406765f.css",
-    "main.js": "/E-commerce-bookstore/static/js/main.3bac1b81.js",
+    "main.js": "/E-commerce-bookstore/static/js/main.a89092b2.js",
     "static/media/hero-img2.png": "/E-commerce-bookstore/static/media/hero-img2.3d3ee69fdb2b9928482d.png",
     "static/media/charles dickens.jpg": "/E-commerce-bookstore/static/media/charles dickens.ab1de7cfd89d33a204a4.jpg",
     "static/media/Vazir-Light.eot": "/E-commerce-bookstore/static/media/Vazir-Light.dd27df7f828b4a65cede.eot",
@@ -47,10 +47,10 @@
     "static/media/menu_24dp_FILL0_wght400_GRAD0_opsz24.svg": "/E-commerce-bookstore/static/media/menu_24dp_FILL0_wght400_GRAD0_opsz24.9d5c7d143c5c8abe23da783721f07c65.svg",
     "static/media/remove_24dp_FILL0_wght300_GRAD0_opsz24.svg": "/E-commerce-bookstore/static/media/remove_24dp_FILL0_wght300_GRAD0_opsz24.985e6b21fcef98c1c88bb60473c1eda9.svg",
     "main.1406765f.css.map": "/E-commerce-bookstore/static/css/main.1406765f.css.map",
-    "main.3bac1b81.js.map": "/E-commerce-bookstore/static/js/main.3bac1b81.js.map"
+    "main.a89092b2.js.map": "/E-commerce-bookstore/static/js/main.a89092b2.js.map"
   },
   "entrypoints": [
     "static/css/main.1406765f.css",
-    "static/js/main.3bac1b81.js"
+    "static/js/main.a89092b2.js"
   ]
 }
