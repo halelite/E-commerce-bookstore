@@ -377,6 +377,7 @@ body {
 	background-color: #2f4858;
 	border-radius: 50%;
 	position: relative;
+	flex-shrink: 0;
 }
 
 .wu-item .icon img {
