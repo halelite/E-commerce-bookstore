@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { images } from "../assets/images";
 import forward from "../assets/icons/arrow_forward_ios_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import back from "../assets/icons/arrow_back_ios_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import addIcon from "../assets/icons/add_24dp_FILL0_wght300_GRAD0_opsz24.svg";
@@ -38,7 +37,7 @@ function BestsellerLists() {
         })
         .catch(err => console.log(err)) */
 
-		fetch(`/data/book.json`)
+		fetch(`${import.meta.env.VITE_API_URL}/api/books`)
 			.then((res) => {
 				if (res.ok) {
 					return res.json();
@@ -47,7 +46,8 @@ function BestsellerLists() {
 				}
 			})
 			.then((data) => {
-				for (let i = 0; i < 10; i++) {
+				setBooks(data);
+				/* for (let i = 0; i < 10; i++) {
 					setBooks((books) => [
 						...books,
 						{
@@ -65,16 +65,19 @@ function BestsellerLists() {
 							author: data.items[i].volumeInfo.authors,
 						},
 					]);
-				}
+				} */
 			})
 			.catch((err) => console.log(err));
 	}, []);
 
 	const bookLists = books.map((book) => {
 		return (
-			<div key={book.id} className="slider-item">
+			<div key={book._id} className="slider-item">
 				<Link to={`books/${book.slug}`}>
-					<img src={book.image} alt="book image" />
+					<img
+						src={`${import.meta.env.VITE_API_URL}${book.image}`}
+						alt="book image"
+					/>
 				</Link>
 				<div className="item-info">
 					<p>{book.title}</p>

@@ -38,7 +38,7 @@ function NewBookLists() {
         })
         .catch(err => console.log(err)) */
 
-		fetch(`/data/book.json`)
+		fetch(`${import.meta.env.VITE_API_URL}/api/books`)
 			.then((res) => {
 				if (res.ok) {
 					return res.json();
@@ -47,7 +47,8 @@ function NewBookLists() {
 				}
 			})
 			.then((data) => {
-				for (let i = 10; i > 0; i--) {
+				setBooks(data);
+				/* for (let i = 10; i > 0; i--) {
 					setBooks((books) => [
 						...books,
 						{
@@ -65,16 +66,19 @@ function NewBookLists() {
 							author: data.items[i].volumeInfo.authors,
 						},
 					]);
-				}
+				} */
 			})
 			.catch((err) => console.log(err));
 	}, []);
 
 	const bookLists = books.map((book) => {
 		return (
-			<div key={book.id} className="slider-item">
+			<div key={book._id} className="slider-item">
 				<Link to={`books/${book.slug}`}>
-					<img src={book.image} alt="book image" />
+					<img
+						src={`${import.meta.env.VITE_API_URL}${book.image}`}
+						alt="book image"
+					/>
 				</Link>
 				<div className="item-info">
 					<p>{book.title}</p>

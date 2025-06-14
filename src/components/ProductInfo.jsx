@@ -61,7 +61,7 @@ function ProductInfo() {
 	}
 
 	useEffect(() => {
-		fetch(`/data/book.json`)
+		fetch(`${import.meta.env.VITE_API_URL}/api/books/${slug}`)
 			.then((res) => {
 				if (res.ok) {
 					return res.json();
@@ -70,7 +70,8 @@ function ProductInfo() {
 				}
 			})
 			.then((data) => {
-				for (let i = 0; i < data.items.length; i++) {
+				setBook(data);
+				/* for (let i = 0; i < data.items.length; i++) {
 					if (data.items[i].volumeInfo.subtitle == slug) {
 						setBook({
 							...book,
@@ -87,7 +88,7 @@ function ProductInfo() {
 						});
 						break;
 					}
-				}
+				} */
 			})
 			.catch((err) => console.log(err));
 	}, []);
@@ -111,16 +112,22 @@ function ProductInfo() {
 	return (
 		<div className="product-info">
 			<div className="product-wrap">
-				<img className="product-img" src={book.image} alt="product image" />
+				<img
+					className="product-img"
+					src={`${import.meta.env.VITE_API_URL}${book?.image}`}
+					alt="product image"
+				/>
 				<div className="productInfo-wrap">
 					<h2>
 						<span>نام کتاب:</span> {book.title}
 					</h2>
 					<h2>
-						<span>نام نویسنده:</span> {book.author}
+						<span>نام نویسنده:</span>{" "}
+						{book.author && <p>{book.author && book.author.join(", ")}</p>}
 					</h2>
 					<h2>
-						<span>دسته بندی:</span> {book.category}
+						<span>دسته بندی:</span>
+						{book.category && <p>{book.author && book.category.join(", ")}</p>}
 					</h2>
 					{book.price && (
 						<h2 className="price">

@@ -7,7 +7,7 @@ import { GlobalContext } from "../context/auth-context";
 function Cart() {
 	const { state, dispatch } = useContext(GlobalContext);
 	const ref = useRef();
-	const ref2 = useRef();
+	const fullPriceRef = useRef();
 
 	function handleIncrease(id, book) {
 		const c =
@@ -67,7 +67,7 @@ function Cart() {
 		} else {
 			fullPrice = 0;
 		}
-		ref2.current.innerHTML = fullPrice;
+		fullPriceRef.current.innerHTML = fullPrice;
 
 		console.log(state);
 	}, [state]);
@@ -80,9 +80,12 @@ function Cart() {
 			).count;
 			const itemPrice = (book.price * itemCount).toLocaleString();
 			return (
-				<li className={`li-${book.id}`} key={book.id}>
+				<li className={`li-${book._id}`} key={book._id}>
 					<div className="book-shopped">
-						<img src={book.image} alt="book" />
+						<img
+							src={`${import.meta.env.VITE_API_URL}${book.image}`}
+							alt="book"
+						/>
 						<div className="shop-info">
 							<p>{book.title}</p>
 							<p>{book.author}</p>
@@ -126,7 +129,7 @@ function Cart() {
 					<div className="final-check">
 						<p>
 							قیمت کل:
-							<span ref={ref2} className="full-price"></span>
+							<span ref={fullPriceRef} className="full-price"></span>
 						</p>
 						<button type="button">پرداخت</button>
 					</div>
