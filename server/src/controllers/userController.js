@@ -6,9 +6,11 @@ const User = require("../models/User");
 const getMe = async (req, res) => {
 	const { _id, name, email } = await User.findById(req.user.id); // we set user.id in the authMiddleware
 	res.status(200).json({
-		id: _id,
-		name,
-		email,
+		user: {
+			id: _id,
+			name,
+			email,
+		},
 	});
 };
 

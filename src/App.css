@@ -5,7 +5,7 @@
 }
 
 :root {
-	--footerHeight: 240px;
+	/* --footerHeight: 240px; */
 	--orange: #dea01e;
 }
 
@@ -41,8 +41,20 @@ body {
 	font-family: vazir;
 }
 
+#root {
+	height: 100vh;
+}
+
+.layout-style {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: stretch;
+}
+
 .main {
-	padding-bottom: var(--footerHeight);
+	/* padding-bottom: var(--footerHeight); */
+	flex: 1;
 }
 
 /* navbar */
@@ -214,6 +226,10 @@ body {
 	text-align: center;
 	border-radius: 8px;
 	color: white;
+}
+
+.account .logout {
+	cursor: pointer;
 }
 
 /* pages */
@@ -625,9 +641,9 @@ body {
 /* footer section */
 .footer {
 	background-color: hsl(260, 8%, 14%);
-	/* margin: 0 -115px; */
-	height: var(--footerHeight);
-	position: absolute;
+	margin: 0 -115px;
+	/* height: var(--footerHeight); */
+	/* position: absolute; */
 	bottom: 0;
 	right: 0;
 	left: 0;
@@ -764,6 +780,10 @@ body {
 	border: 1px solid #ccc;
 }
 
+.field-wrap input.errorField {
+	border: 1px solid red;
+}
+
 .field-wrap input:focus {
 	border: none;
 	border: 1px solid var(--orange);
@@ -772,6 +792,11 @@ body {
 .field-wrap input::placeholder {
 	font-family: vazir;
 	color: #aaa;
+}
+
+.error {
+	color: red;
+	font-size: 0.9rem;
 }
 
 .forgot {
@@ -1008,6 +1033,10 @@ form button {
 	font-family: vazir;
 }
 
+.footer-container .info {
+	text-align: justify;
+}
+
 /* tablet view */
 @media screen and (max-width: 767px) {
 	body {
@@ -1068,7 +1097,7 @@ form button {
 /* mobile view */
 @media screen and (max-width: 376px) {
 	:root {
-		--footerHeight: 500px;
+		/* --footerHeight: 500px; */
 	}
 
 	body {

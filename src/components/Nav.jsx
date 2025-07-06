@@ -1,28 +1,40 @@
 import Searchbar from "./Searchbar";
 import logo from "../assets/images/logo.png";
-import cart from "../assets/icons/shopping_cart_24dp_FILL0_wght400_GRAD0_opsz24.svg";
+import cartLogo from "../assets/icons/shopping_cart_24dp_FILL0_wght400_GRAD0_opsz24.svg";
 import { useContext, useEffect, useRef, useState } from "react";
-import { GlobalContext } from "../context/auth-context";
 import menu from "../assets/icons/menu_24dp_FILL0_wght400_GRAD0_opsz24.svg";
 import close from "../assets/icons/close_24dp_FILL0_wght400_GRAD0_opsz24.svg";
 import PagesSection from "./PagesSection";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useCart } from "../context/cart-context";
+import { useAuth } from "../context/auth-context";
 
 function Nav() {
+	const navigate = useNavigate();
 	const ref = useRef();
 	const [menuActive, setMenuActive] = useState(false);
-	const { state } = useContext(GlobalContext);
+	const { cart } = useCart();
+	const { isAuthenticated, logout } = useAuth();
 
-	console.log(state);
+	console.log("is Authenticated: ", isAuthenticated);
 
 	useEffect(() => {
-		ref.current.innerHTML = state.boughtBooks.length;
+		ref.current.innerHTML = cart.length;
 		if (ref.current.innerHTML == 0) {
 			ref.current.style.display = "none";
 		} else {
 			ref.current.style.display = "block";
 		}
-	}, [state.boughtBooks.length]);
+	}, [cart]);
+
+	const handleLogout = async () => {
+		try {
+			await logout();
+			navigate("/");
+		} catch (error) {
+			console.error("Logout failed:", error);
+		}
+	};
 
 	return (
 		<>
@@ -44,15 +56,24 @@ function Nav() {
 				<Searchbar />
 
 				<div className="account">
-					<div className="sign-in-up">
-						<Link to="/login">ورود | ثبت‌نام</Link>
-					</div>
+					{isAuthenticated ? (
+						<Link to="/profile">پروفایل</Link>
+					) : (
+						<div className="sign-in-up">
+							<Link to="/login">ورود | ثبت‌نام</Link>
+						</div>
+					)}
 					<div className="cart">
 						<span className="num" ref={ref}></span>
 						<Link to="/cart">
-							<img src={cart} alt="cart" />
+							<img src={cartLogo} alt="cart" />
 						</Link>
 					</div>
+					{isAuthenticated && (
+						<div className="logout" onClick={handleLogout}>
+							logout
+						</div>
+					)}
 				</div>
 			</div>
 			<PagesSection active={menuActive} />

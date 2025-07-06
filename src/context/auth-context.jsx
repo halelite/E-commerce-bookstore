@@ -1,90 +1,85 @@
-import { createContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
-const initialState = {
-	boughtBooks: [],
-	bookCount: [],
-};
+export const AuthContext = createContext();
 
-function reducer(state, action) {
-	switch (action.type) {
-		case "ADD_ITEM":
-			let flag = false;
-			if (state.bookCount.length != 0) {
-				state.bookCount.forEach((book) => {
-					if (book.title == action.payload.title) {
-						flag = true;
-						return;
+export const AuthProvider = ({ children }) => {
+	const [user, setUser] = useState(null);
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		const token = localStorage.getItem("token");
+		const guestId = localStorage.getItem("guestId") || crypto.randomUUID();
+		localStorage.setItem("guestId", guestId);
+		if (token) {
+			console.log("i am here after login");
+
+			fetch(`${import.meta.env.VITE_API_URL}/api/users/me`, {
+				headers: {
+					Authorization: "Bearer " + token,
+				},
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					if (data.user) {
+						setUser(data.user);
+						setIsAuthenticated(true);
+					} else {
+						localStorage.removeItem("token");
 					}
-				});
-				if (flag == false) {
-					return {
-						...state,
-						boughtBooks: [...state.boughtBooks, action.payload],
-						bookCount: [
-							...state.bookCount,
-							{
-								title: action.payload.title,
-								count: action.count,
-							},
-						],
-					};
+				})
+				.catch((err) => {
+					console.log(err);
+					localStorage.removeItem("token");
+				})
+				.finally(() => setLoading(false));
+		} else {
+			setLoading(false);
+		}
+	}, []);
+
+	const login = async ({ email, password }) => {
+		try {
+			const response = await fetch(
+				`${import.meta.env.VITE_API_URL}/api/auth/login`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						email,
+						password,
+					}),
 				}
-				return state;
-			} else {
-				return {
-					...state,
-					boughtBooks: [...state.boughtBooks, action.payload],
-					bookCount: [
-						...state.bookCount,
-						{
-							title: action.payload.title,
-							count: action.count,
-						},
-					],
-				};
+			);
+			const data = await response.json();
+			if (!response.ok) {
+				throw new Error(data.message || "خطا در ورود به حساب کاربری");
 			}
-		case "EDIT_ITEM":
-			return {
-				...state,
-				bookCount: [
-					...state.bookCount.filter(
-						(book) => book.title != action.payload.title
-					),
-					{ title: action.payload.title, count: action.count },
-				],
-			};
-		case "DELETE_ITEM":
-			return {
-				...state,
-				boughtBooks: [
-					...state.boughtBooks.filter(
-						(book) => book.title != action.payload.title
-					),
-				],
-				bookCount: [
-					...state.bookCount.filter(
-						(book) => book.title != action.payload.title
-					),
-				],
-			};
-		default:
-			return state;
-	}
-}
+			const { _id, name, email: userEmail, token } = data;
+			localStorage.setItem("token", token);
+			setIsAuthenticated(true);
+			setUser({ id: _id, name, email: userEmail });
+			setLoading(false);
+			return { token, user: { id: _id, name, email: userEmail } };
+		} catch (err) {
+			throw new Error(err.message || "خطا در ورود");
+		}
+	};
 
-export const GlobalContext = createContext([]);
-
-export function GlobalProvider({ children }) {
-	const [state, dispatch] = useReducer(reducer, initialState);
+	const logout = () => {
+		localStorage.removeItem("token");
+		setUser(null);
+		setIsAuthenticated(false);
+	};
 
 	return (
-		<GlobalContext.Provider
-			value={{
-				state,
-				dispatch,
-			}}
-		>
-			{children}
-		</GlobalContext.Provider>
+		<AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+			{!loading && children}
+		</AuthContext.Provider>
 	);
-}
+};
+
+// useAuth hook
+export const useAuth = () => useContext(AuthContext);

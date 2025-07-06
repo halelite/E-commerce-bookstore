@@ -11,6 +11,7 @@ import Product from "./pages/Product";
 import Category from "./pages/Category";
 import Cart from "./components/Cart";
 import { useEffect } from "react";
+import Profile from "./pages/Profile";
 
 function App() {
 	const { pathname } = useLocation();
@@ -31,6 +32,7 @@ function App() {
 			<Route path="/books/:slug" element={<Product />} />
 			<Route path="/categories/:slug" element={<Category />} />
 			<Route path="/cart" element={<Cart />} />
+			<Route path="/profile" element={<Profile />} />
 		</Routes>
 	);
 }

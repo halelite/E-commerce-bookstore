@@ -1,22 +1,23 @@
 import { useContext, useEffect, useState } from "react";
 import { images } from "../assets/images";
 import addIcon from "../assets/icons/add_24dp_FILL0_wght300_GRAD0_opsz24.svg";
-import { GlobalContext } from "../context/auth-context";
+import { useCart } from "../context/cart-context";
 import Layout from "../components/Layout";
 import { Link, useParams } from "react-router";
 
 function Category() {
 	const { slug } = useParams();
-	const { dispatch } = useContext(GlobalContext);
+	const { cart, addToCart } = useCart();
 	const [books, setBooks] = useState([]);
 
 	function handleAddtoCart(bookData) {
 		console.log(bookData);
-		dispatch({
+		/* dispatch({
 			type: "ADD_ITEM",
 			payload: bookData,
 			count: 1,
-		});
+		}); */
+		addToCart(bookData);
 	}
 
 	useEffect(() => {

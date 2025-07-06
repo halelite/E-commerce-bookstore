@@ -2,11 +2,11 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { images } from "../assets/images";
 import plus from "../assets/icons/add_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import minus from "../assets/icons/remove_24dp_FILL0_wght300_GRAD0_opsz24.svg";
-import { GlobalContext } from "../context/auth-context";
+import { useCart } from "../context/cart-context";
 import { useParams } from "react-router";
 
 function ProductInfo() {
-	const { state, dispatch } = useContext(GlobalContext);
+	const { cart, addToCart, deleteCartItem } = useCart();
 	const { slug } = useParams();
 	const ref = useRef();
 	const [book, setBook] = useState({});
@@ -26,36 +26,38 @@ function ProductInfo() {
 	}
 
 	function handleAddToCart(bookData) {
-		if (state.bookCount.length > 0) {
-			state.bookCount.map((book) => {
+		if (cart.length > 0) {
+			cart.map((book) => {
 				if (book.title == bookData.title) {
 					if (ref.current.innerHTML == 0) {
-						dispatch({
+						/* dispatch({
 							type: "DELETE_ITEM",
 							payload: bookData,
-						});
+						}); */
+						deleteCartItem(bookData._id);
 					} else {
-						dispatch({
+						/* dispatch({
 							type: "EDIT_ITEM",
 							payload: bookData,
 							count: ref.current.innerHTML,
-						});
+						}); */
 					}
 				} else {
-					dispatch({
+					/* dispatch({
 						type: "ADD_ITEM",
 						payload: bookData,
 						count: ref.current.innerHTML,
-					});
+					}); */
+					addToCart(bookData, ref.current.innerHTML);
 				}
 			});
 		} else {
 			if (ref.current.innerHTML > 0) {
-				dispatch({
+				/* dispatch({
 					type: "ADD_ITEM",
 					payload: bookData,
 					count: ref.current.innerHTML,
-				});
+				}); */
 			}
 		}
 	}
@@ -94,10 +96,10 @@ function ProductInfo() {
 	}, []);
 
 	useEffect(() => {
-		if (state.bookCount.length > 0) {
-			for (let i = 0; i < state.bookCount.length; i++) {
+		if (cart.length > 0) {
+			for (let i = 0; i < cart.length; i++) {
 				if (book.title == state.bookCount[i].title) {
-					let c = state.bookCount[i].count;
+					let c = cart[i].count;
 					ref.current.innerHTML = c;
 					break;
 				} else {

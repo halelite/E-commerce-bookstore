@@ -1,17 +1,15 @@
-import Footer from "./Footer"
-import Main from "./Main"
-import Nav from "./Nav"
+import Footer from "./Footer";
+import Main from "./Main";
+import Nav from "./Nav";
 
-function Layout({children}) {
-    return (
-        <>
-            <Nav />
-            <Main>
-                {children}
-            </Main>
-            <Footer />
-        </>
-    )
+function Layout({ children }) {
+	return (
+		<div className="layout-style">
+			<Nav />
+			<Main>{children}</Main>
+			<Footer />
+		</div>
+	);
 }
 
-export default Layout
+export default Layout;

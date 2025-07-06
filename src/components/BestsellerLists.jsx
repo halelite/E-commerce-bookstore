@@ -2,41 +2,27 @@ import { useContext, useEffect, useState } from "react";
 import forward from "../assets/icons/arrow_forward_ios_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import back from "../assets/icons/arrow_back_ios_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import addIcon from "../assets/icons/add_24dp_FILL0_wght300_GRAD0_opsz24.svg";
-import { GlobalContext } from "../context/auth-context";
+import { useCart } from "../context/cart-context";
 import go from "../assets/icons/keyboard_backspace_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import star from "../assets/icons/icon-star.svg";
 import { Link } from "react-router";
 import { handleClick } from "../assets/sliderBook";
 
 function BestsellerLists() {
-	const { dispatch } = useContext(GlobalContext);
+	const { addToCart } = useCart();
 	const [books, setBooks] = useState([]);
 
-	function handleAddtoCart(bookData) {
-		console.log(bookData);
-		dispatch({
+	async function handleAddtoCart(bookData) {
+		console.log("i am in >>>>", bookData);
+		/* dispatch({
 			type: "ADD_ITEM",
 			payload: bookData,
 			count: 1,
-		});
+		}); */
+		await addToCart(bookData);
 	}
 
 	useEffect(() => {
-		/*fetch(`https://www.googleapis.com/books/v1/volumes?q=گتسبی&printType=books&langRestrict=fa&maxResults=1&keyAIzaSyB9QR79cHEcQfklBeyQOwgd2OW2ulBFSEs`)
-        .then(res => {
-            if(res.ok) {
-                return res.json();
-            } else {
-                throw Error(res.status);
-            }
-        })
-        .then(data => {
-            console.log(data);
-            
-            setImage(data.items[0].volumeInfo.imageLinks.thumbnail);
-        })
-        .catch(err => console.log(err)) */
-
 		fetch(`${import.meta.env.VITE_API_URL}/api/books`)
 			.then((res) => {
 				if (res.ok) {

@@ -2,45 +2,54 @@ import { useContext, useEffect, useRef, useState } from "react";
 import Layout from "./Layout";
 import plus from "../assets/icons/add_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import minus from "../assets/icons/remove_24dp_FILL0_wght300_GRAD0_opsz24.svg";
-import { useCart } from "../context/cart-context";
+import { GlobalContext } from "../context/cart-context";
 
 function Cart() {
-	const { cart, editCartItem, deleteCartItem } = useCart();
+	const { state, dispatch } = useContext(GlobalContext);
 	const ref = useRef();
 	const fullPriceRef = useRef();
 
-	console.log("cart >>>", cart);
-
-	async function handleIncrease(id, book) {
+	function handleIncrease(id, book) {
 		const c =
 			JSON.parse(
-				cart.find((item) => {
-					return item._id == book._id;
-				}).quantity
+				state.bookCount.find((item) => {
+					return item.title == book.title;
+				}).count
 			) + 1;
 
-		await editCartItem(id, c);
+		dispatch({
+			type: "EDIT_ITEM",
+			payload: book,
+			count: c,
+		});
 		updateChangeNumber(id, c);
 	}
 
-	async function handleDecrease(id, book) {
+	function handleDecrease(id, book) {
 		const c =
 			JSON.parse(
-				cart.find((item) => {
-					return item._id == book._id;
-				}).quantity
+				state.bookCount.find((item) => {
+					return item.title == book.title;
+				}).count
 			) - 1;
 
 		if (c == 0) {
-			await deleteCartItem(id);
+			dispatch({
+				type: "DELETE_ITEM",
+				payload: book,
+			});
 		} else {
-			await editCartItem(id, c);
+			dispatch({
+				type: "EDIT_ITEM",
+				payload: book,
+				count: c,
+			});
 		}
 		updateChangeNumber(id, c);
 	}
 
 	function updateChangeNumber(id, c) {
-		for (let i = 0; i < cart.length; i++) {
+		for (let i = 0; i < state.boughtBooks.length; i++) {
 			if (ref.current.children[i].classList.contains(`li-${id}`)) {
 				ref.current.children[i].getElementsByClassName(`item${id}`).innerHTML =
 					c;
@@ -49,21 +58,26 @@ function Cart() {
 	}
 
 	useEffect(() => {
+		let booksLength = state.bookCount.length;
 		let fullPrice = 0;
-		if (cart.length > 0) {
-			for (let i = 0; i < cart.length; i++) {
-				fullPrice += cart[i].quantity * cart[i].price;
+		if (booksLength > 0) {
+			for (let i = 0; i < booksLength; i++) {
+				fullPrice += state.bookCount[i].count * state.boughtBooks[i].price;
 			}
 		} else {
 			fullPrice = 0;
 		}
 		fullPriceRef.current.innerHTML = fullPrice;
-	}, [cart]);
+
+		console.log(state);
+	}, [state]);
 
 	let boughtItems = "";
-	if (cart.length > 0) {
-		boughtItems = cart.map((book) => {
-			const itemCount = cart.find((b) => b._id == book._id).quantity;
+	if (state.boughtBooks.length > 0) {
+		boughtItems = state.boughtBooks.map((book) => {
+			const itemCount = state.bookCount.find(
+				(b) => b.title == book.title
+			).count;
 			const itemPrice = (book.price * itemCount).toLocaleString();
 			return (
 				<li className={`li-${book._id}`} key={book._id}>
@@ -80,7 +94,7 @@ function Cart() {
 					<div className="price-info">
 						<div className="change-count">
 							<div
-								onClick={() => handleIncrease(book._id, book)}
+								onClick={() => handleIncrease(book.id, book)}
 								className="increase"
 							>
 								<img src={plus} alt="plus" />
@@ -89,7 +103,7 @@ function Cart() {
 								<span className={`item${book.id}`}>{itemCount}</span>
 							</div>
 							<div
-								onClick={() => handleDecrease(book._id, book)}
+								onClick={() => handleDecrease(book.id, book)}
 								className="decrease"
 							>
 								<img src={minus} alt="minus" />
