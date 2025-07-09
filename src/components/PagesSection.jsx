@@ -1,5 +1,5 @@
 import arrowDown from "../assets/icons/arrow_down_24dp_FILL0_wght300_GRAD0_opsz24.svg";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, useLayoutEffect } from "react";
 import arrowUp from "../assets/icons/arrow_up_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import { Link, NavLink } from "react-router";
 
@@ -24,7 +24,7 @@ function PagesSection({ active }) {
 		}
 	}
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (show) {
 			ref.current.style.display = "block";
 		} else {

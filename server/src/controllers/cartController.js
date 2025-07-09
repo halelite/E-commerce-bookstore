@@ -21,16 +21,13 @@ const addToCart = async (req, res, next) => {
 			"items.bookId": bookId,
 		}); */
 
-		// check if cart exists
-		const cart = await Cart.findOne({ userId: req.user.id }).populate(
-			"items.bookId"
-		);
+		const cart = await Cart.findOne({ userId: req.user.id });
 
 		// If cart exists and book already in it, do nothing
 		if (cart && cart.items.some((item) => item.bookId.toString() === bookId)) {
 			const populatedCart = await Cart.findOne({
 				userId: req.user.id,
-			});
+			}).populate("items.bookId");
 
 			return res.status(200).json({ cart: populatedCart.items });
 		}
@@ -46,27 +43,6 @@ const addToCart = async (req, res, next) => {
 		).populate("items.bookId");
 
 		res.status(200).json({ cart: updatedCart.items });
-
-		/* if (cart) {
-			// update quantity of the existing book
-			const updatedCart = await Cart.findOneAndUpdate(
-				{ userId: req.user.id, "items.bookId": bookId }, // filter
-				{ $inc: { "items.$.quantity": quantity } }, // update
-				{ new: true } // options (return the updated document)
-			).populate("items.bookId");
-			res.status(200).json({ cart: updatedCart.items });
-		} else {
-			// add new book to cart (or create cart if it doesn't exist)
-			const updatedCart = await Cart.findOneAndUpdate(
-				{ userId: req.user.id },
-				{
-					$push: { items: { bookId, quantity } },
-					$setOnInsert: { userId: req.user.id },
-				},
-				{ upsert: true, new: true } // upsert creates a new document if it doesn't exist
-			).populate("items.bookId");
-			res.status(200).json({ cart: updatedCart.items });
-		} */
 	} catch (err) {
 		next(err);
 	}
@@ -129,7 +105,7 @@ const syncCart = async (req, res, next) => {
 			);
 
 			if (existingItem) {
-				existingItem.quantity += guestItem.quantity;
+				existingItem.quantity = guestItem.quantity;
 			} else {
 				mergedItems.push({
 					bookId: guestItem.bookId,

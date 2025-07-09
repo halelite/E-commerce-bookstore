@@ -9,7 +9,7 @@ import Authors from "./pages/Authors";
 import AuthorInfo from "./components/AuthorInfo";
 import Product from "./pages/Product";
 import Category from "./pages/Category";
-import Cart from "./components/Cart";
+import Cart from "./pages/Cart";
 import { useEffect } from "react";
 import Profile from "./pages/Profile";
 

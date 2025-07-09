@@ -12,8 +12,6 @@ export const AuthProvider = ({ children }) => {
 		const guestId = localStorage.getItem("guestId") || crypto.randomUUID();
 		localStorage.setItem("guestId", guestId);
 		if (token) {
-			console.log("i am here after login");
-
 			fetch(`${import.meta.env.VITE_API_URL}/api/users/me`, {
 				headers: {
 					Authorization: "Bearer " + token,
@@ -75,7 +73,9 @@ export const AuthProvider = ({ children }) => {
 	};
 
 	return (
-		<AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+		<AuthContext.Provider
+			value={{ user, isAuthenticated, login, logout, loading }}
+		>
 			{!loading && children}
 		</AuthContext.Provider>
 	);

@@ -1,38 +1,30 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { useAuth } from "./auth-context";
 
+const normalizeCartItem = (item) => ({
+	bookId: item.bookId?._id || item.bookId || item._id,
+	selLink: item.bookId?.selLink || item.selLink,
+	title: item.bookId?.title || item.title,
+	en_title: item.bookId?.en_title || item.en_title,
+	slug: item.bookId?.slug || item.slug,
+	author: item.bookId?.author || item.author,
+	en_author: item.bookId?.en_author || item.en_author,
+	image: item.bookId?.image || item.image,
+	price: item.bookId?.price || item.price,
+	publisher: item.bookId?.publisher || item.publisher,
+	publishedDate: item.bookId?.publishedDate || item.publishedDate,
+	description: item.bookId?.description || item.description,
+	category: item.bookId?.category || item.category,
+	ISBN: item.bookId?.ISBN || item.ISBN,
+	quantity: item.quantity || 1,
+});
+
 const initialState = {
 	cart: [],
 };
 
 function reducer(state, action) {
 	switch (action.type) {
-		/* case "ADD_ITEM":
-			const bookExists = state.cart.find(
-				(item) => item.bookId === action.payload.bookId
-			);
-
-			if (bookExists) {
-				return {
-					...state,
-					cart: state.cart.map((item) => {
-						return item.bookId === action.payload.bookId
-							? { ...item, quantity: item.quantity + action.payload.quantity }
-							: item;
-					}),
-				};
-			}
-
-			return {
-				...state,
-				cart: [
-					...state.cart,
-					{
-						...action.payload,
-					},
-				],
-			}; */
-
 		case "ADD_ITEM":
 			const bookExists = state.cart.find(
 				(item) => item.bookId === action.payload.bookId
@@ -46,9 +38,10 @@ function reducer(state, action) {
 				...state,
 				cart: [
 					...state.cart,
-					{
+					/* {
 						...action.payload,
-					},
+					}, */
+					normalizeCartItem(action.payload),
 				],
 			};
 
@@ -73,7 +66,8 @@ function reducer(state, action) {
 		case "SET_CART":
 			return {
 				...state,
-				cart: action.payload,
+				// cart: action.payload,
+				cart: action.payload.map(normalizeCartItem),
 			};
 		default:
 			return state;
@@ -92,10 +86,8 @@ export function CartProvider({ children }) {
 			const guestCart =
 				JSON.parse(localStorage.getItem(`cart_${guestId}`)) || [];
 			dispatch({ type: "SET_CART", payload: guestCart });
-			console.log("not authenticated?");
 		} else {
 			const token = localStorage.getItem("token");
-			console.log("authenticated?");
 			fetch(`${import.meta.env.VITE_API_URL}/api/cart`, {
 				headers: { Authorization: `Bearer ${token}` },
 			})
@@ -103,7 +95,12 @@ export function CartProvider({ children }) {
 					if (!res.ok) throw new Error("Failed to fetch cart");
 					return res.json();
 				})
-				.then((data) => dispatch({ type: "SET_CART", payload: data.cart }))
+				.then((data) =>
+					dispatch({
+						type: "SET_CART",
+						payload: data.cart,
+					})
+				)
 				.catch((err) => console.log("Error fetching cart: ", err));
 		}
 	}, [isAuthenticated, guestId]);
@@ -139,7 +136,10 @@ export function CartProvider({ children }) {
 				if (!response.ok) throw new Error("Failed to add to cart");
 				const data = await response.json();
 				// because we return cart items in the backend (cartController)
-				dispatch({ type: "SET_CART", payload: data.cart });
+				dispatch({
+					type: "SET_CART",
+					payload: data.cart,
+				});
 			} catch (err) {
 				console.log("Error adding to cart:", err);
 				// Optionally revert the optimistic update
@@ -170,7 +170,7 @@ export function CartProvider({ children }) {
 							Authorization: `Bearer ${token}`,
 						},
 						body: JSON.stringify({
-							bookId: book._id,
+							bookId,
 							quantity,
 						}),
 					}
@@ -178,11 +178,24 @@ export function CartProvider({ children }) {
 				if (!response.ok) throw new Error("Failed to edit cart item");
 				const data = await response.json();
 				// because we return cart items in the backend (cartController)
-				dispatch({ type: "SET_CART", payload: data.cart });
+				dispatch({
+					type: "SET_CART",
+					payload: data.cart,
+				});
 			} catch (err) {
-				const updatedCart = reducer(state, { type: "EDIT_ITEM", payload }).cart;
+				const updatedCart = reducer(state, {
+					type: "EDIT_ITEM",
+					payload: { bookId, quantity },
+				}).cart;
 				localStorage.setItem(`cart_${guestId}`, JSON.stringify(updatedCart));
 			}
+		} else {
+			// since useReducer updates are async
+			const updatedCart = reducer(state, {
+				type: "EDIT_ITEM",
+				payload: { bookId, quantity },
+			}).cart;
+			localStorage.setItem(`cart_${guestId}`, JSON.stringify(updatedCart));
 		}
 	};
 
@@ -241,6 +254,7 @@ export function CartProvider({ children }) {
 				);
 				if (!response.ok) throw new Error("Failed to sync cart");
 				localStorage.removeItem(`cart_${guestId}`);
+				console.log("Guest cart synced and cleared");
 			} catch (err) {
 				console.log("Error syncing cart:", err);
 			}

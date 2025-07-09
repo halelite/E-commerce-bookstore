@@ -11,9 +11,9 @@ const { authMiddleware } = require("../middleware/authMiddleware");
 const router = express.Router();
 
 router.get("/", authMiddleware, getCart);
-router.get("/addToCart", authMiddleware, addToCart);
-router.get("/editCartItem", authMiddleware, editCartItem);
-router.get("/deleteBook", authMiddleware, deleteCartItem);
-router.get("/sync", authMiddleware, syncCart);
+router.post("/addToCart", authMiddleware, addToCart);
+router.post("/editCartItem", authMiddleware, editCartItem);
+router.post("/deleteBook", authMiddleware, deleteCartItem);
+router.post("/sync", authMiddleware, syncCart);
 
 module.exports = router;

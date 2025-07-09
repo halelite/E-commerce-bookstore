@@ -1,9 +1,10 @@
 import Searchbar from "./Searchbar";
 import logo from "../assets/images/logo.png";
 import cartLogo from "../assets/icons/shopping_cart_24dp_FILL0_wght400_GRAD0_opsz24.svg";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useRef, useState, useLayoutEffect } from "react";
 import menu from "../assets/icons/menu_24dp_FILL0_wght400_GRAD0_opsz24.svg";
 import close from "../assets/icons/close_24dp_FILL0_wght400_GRAD0_opsz24.svg";
+import user from "../assets/icons/person_24dp_FILL0_wght400_GRAD0_opsz24.svg";
 import PagesSection from "./PagesSection";
 import { Link, useNavigate } from "react-router";
 import { useCart } from "../context/cart-context";
@@ -13,12 +14,22 @@ function Nav() {
 	const navigate = useNavigate();
 	const ref = useRef();
 	const [menuActive, setMenuActive] = useState(false);
-	const { cart } = useCart();
-	const { isAuthenticated, logout } = useAuth();
+	const { cart, syncCart } = useCart();
+	const { isAuthenticated, logout, loading } = useAuth();
 
-	console.log("is Authenticated: ", isAuthenticated);
+	useLayoutEffect(() => {
+		if (isAuthenticated && !loading) {
+			const token = localStorage.getItem("token");
+			const guestId = localStorage.getItem("guestId");
+			const guestCart = JSON.parse(localStorage.getItem(`cart_${guestId}`));
+			if (guestCart && guestCart.length > 0) {
+				console.log("Syncing guest cart for user:");
+				syncCart(token);
+			}
+		}
+	}, [isAuthenticated, loading, syncCart]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		ref.current.innerHTML = cart.length;
 		if (ref.current.innerHTML == 0) {
 			ref.current.style.display = "none";
@@ -57,7 +68,14 @@ function Nav() {
 
 				<div className="account">
 					{isAuthenticated ? (
-						<Link to="/profile">پروفایل</Link>
+						<Link to="/profile">
+							<img
+								className="profile"
+								src={user}
+								title="پروفایل"
+								alt="profile"
+							/>
+						</Link>
 					) : (
 						<div className="sign-in-up">
 							<Link to="/login">ورود | ثبت‌نام</Link>
@@ -66,7 +84,7 @@ function Nav() {
 					<div className="cart">
 						<span className="num" ref={ref}></span>
 						<Link to="/cart">
-							<img src={cartLogo} alt="cart" />
+							<img title="سبد خرید" src={cartLogo} alt="cart" />
 						</Link>
 					</div>
 					{isAuthenticated && (
