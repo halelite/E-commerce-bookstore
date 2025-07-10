@@ -1,13 +1,20 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../context/auth-context";
+import { useCart } from "../context/cart-context";
+import { toast } from "react-toastify";
 
 function Register() {
+	const { login } = useAuth();
+	const { syncCart } = useCart();
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
 		password: "",
 	});
 	const [errors, setErrors] = useState({});
+	const [loading, setLoading] = useState(false);
+	const navigate = useNavigate();
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -38,6 +45,7 @@ function Register() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const validationErrors = validateForm(formData);
+		setLoading(true);
 
 		console.log("formData", formData);
 
@@ -59,11 +67,21 @@ function Register() {
 				);
 				const data = response.json();
 				if (!response.ok) {
-					throw new Error("خطا در ثبت نام");
+					throw new Error(data.message || "خطا در ثبت نام");
 				}
+				const { token } = await login({
+					email: formData.email,
+					password: formData.password,
+				});
+				await syncCart(token);
+				toast.success("ثبت نام با موفقیت انجام شد");
+				navigate("/");
 			} catch (err) {
 				console.log(err.message);
 				setErrors({ general: err.message });
+				toast.error("خطا در ثبت نام");
+			} finally {
+				setLoading(false);
 			}
 		} else {
 			setErrors(validationErrors);
@@ -102,7 +120,9 @@ function Register() {
 						onChange={handleInputChange}
 					/>
 				</div>
-				<button type="submit">ثبت نام</button>
+				<button type="submit" disabled={loading}>
+					{loading ? "در حال ثبت‌نام..." : "ثبت‌نام"}
+				</button>
 			</form>
 			<div className="to-register">
 				<p>حساب کاربری دارید؟</p>

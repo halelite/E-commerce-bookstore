@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext();
 
@@ -60,8 +61,10 @@ export const AuthProvider = ({ children }) => {
 			setIsAuthenticated(true);
 			setUser({ id: _id, name, email: userEmail });
 			setLoading(false);
+			toast.success("ورود با موفقیت انجام شد");
 			return { token, user: { id: _id, name, email: userEmail } };
 		} catch (err) {
+			toast.error(err.message || "خطا در ورود");
 			throw new Error(err.message || "خطا در ورود");
 		}
 	};
@@ -70,6 +73,7 @@ export const AuthProvider = ({ children }) => {
 		localStorage.removeItem("token");
 		setUser(null);
 		setIsAuthenticated(false);
+		toast.info("خروج از حساب کاربری با موفقیت انجام شد");
 	};
 
 	return (
@@ -82,4 +86,10 @@ export const AuthProvider = ({ children }) => {
 };
 
 // useAuth hook
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+	const context = useContext(AuthContext);
+	if (!context) {
+		throw new Error("useAuth must be used within an AuthProvider");
+	}
+	return context;
+};

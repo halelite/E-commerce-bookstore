@@ -12,6 +12,7 @@ import Category from "./pages/Category";
 import Cart from "./pages/Cart";
 import { useEffect } from "react";
 import Profile from "./pages/Profile";
+import { Bounce, ToastContainer } from "react-toastify";
 
 function App() {
 	const { pathname } = useLocation();
@@ -21,19 +22,29 @@ function App() {
 	}, [pathname]);
 
 	return (
-		<Routes>
-			<Route path="/" element={<Home />} />
-			<Route path="/about" element={<About />} />
-			<Route path="/contact" element={<Contact />} />
-			<Route path="/login" element={<Login />} />
-			<Route path="/register" element={<Register />} />
-			<Route path="/authors" element={<Authors />} />
-			<Route path="/authors/:slug" element={<AuthorInfo />} />
-			<Route path="/books/:slug" element={<Product />} />
-			<Route path="/categories/:slug" element={<Category />} />
-			<Route path="/cart" element={<Cart />} />
-			<Route path="/profile" element={<Profile />} />
-		</Routes>
+		<>
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/about" element={<About />} />
+				<Route path="/contact" element={<Contact />} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/register" element={<Register />} />
+				<Route path="/authors" element={<Authors />} />
+				<Route path="/authors/:slug" element={<AuthorInfo />} />
+				<Route path="/books/:slug" element={<Product />} />
+				<Route path="/categories/:slug" element={<Category />} />
+				<Route path="/cart" element={<Cart />} />
+				<Route path="/profile" element={<Profile />} />
+			</Routes>
+			<ToastContainer
+				position="top-right"
+				autoClose={4000}
+				hideProgressBar={false}
+				rtl
+				theme="colored"
+				transition={Bounce}
+			/>
+		</>
 	);
 }
 

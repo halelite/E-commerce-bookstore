@@ -48,7 +48,6 @@ function Login() {
 					password: formData.password,
 				});
 				await syncCart(token);
-				alert("ورود با موفقیت انجام شد.");
 				navigate("/");
 			} catch (err) {
 				console.log(err.message);
@@ -92,7 +91,9 @@ function Login() {
 				<a className="forgot" href="#">
 					رمز عبور را فراموش کرده‌اید؟
 				</a>
-				<button type="submit">{loading ? "در حال ورود..." : "ورود"}</button>
+				<button type="submit" disabled={loading}>
+					{loading ? "در حال ورود..." : "ورود"}
+				</button>
 			</form>
 			<div className="to-register">
 				<p>حساب کاربری ندارید؟</p>

@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { useAuth } from "./auth-context";
+import { toast } from "react-toastify";
 
 const normalizeCartItem = (item) => ({
 	bookId: item.bookId?._id || item.bookId || item._id,
@@ -95,13 +96,16 @@ export function CartProvider({ children }) {
 					if (!res.ok) throw new Error("Failed to fetch cart");
 					return res.json();
 				})
-				.then((data) =>
+				.then((data) => {
 					dispatch({
 						type: "SET_CART",
 						payload: data.cart,
-					})
-				)
-				.catch((err) => console.log("Error fetching cart: ", err));
+					});
+				})
+				.catch((err) => {
+					console.log("Error fetching cart: ", err);
+					toast.error("خطا در دریافت سبد خرید");
+				});
 		}
 	}, [isAuthenticated, guestId]);
 
@@ -140,15 +144,18 @@ export function CartProvider({ children }) {
 					type: "SET_CART",
 					payload: data.cart,
 				});
+				toast.success("کتاب به سبد خرید اضافه شد");
 			} catch (err) {
 				console.log("Error adding to cart:", err);
 				// Optionally revert the optimistic update
 				dispatch({ type: "SET_CART", payload: state.cart });
+				toast.error("خطا در افزودن کتاب به سبد خرید");
 			}
 		} else {
 			// since useReducer updates are async
 			const updatedCart = reducer(state, { type: "ADD_ITEM", payload }).cart;
 			localStorage.setItem(`cart_${guestId}`, JSON.stringify(updatedCart));
+			toast.success("کتاب به سبد خرید اضافه شد");
 		}
 	};
 
@@ -182,12 +189,14 @@ export function CartProvider({ children }) {
 					type: "SET_CART",
 					payload: data.cart,
 				});
+				toast.success("تعداد کتاب در سبد خرید ویرایش شد");
 			} catch (err) {
 				const updatedCart = reducer(state, {
 					type: "EDIT_ITEM",
 					payload: { bookId, quantity },
 				}).cart;
 				localStorage.setItem(`cart_${guestId}`, JSON.stringify(updatedCart));
+				toast.error("خطا در ویرایش تعداد کتاب در سبد خرید");
 			}
 		} else {
 			// since useReducer updates are async
@@ -196,6 +205,7 @@ export function CartProvider({ children }) {
 				payload: { bookId, quantity },
 			}).cart;
 			localStorage.setItem(`cart_${guestId}`, JSON.stringify(updatedCart));
+			toast.success("تعداد کتاب در سبد خرید ویرایش شد");
 		}
 	};
 
@@ -222,10 +232,12 @@ export function CartProvider({ children }) {
 				if (!response.ok) throw new Error("Failed to delete cart item");
 				const data = await response.json();
 				dispatch({ type: "SET_CART", payload: data.cart });
+				toast.success("کتاب از سبد خرید حذف شد");
 			} catch (err) {
 				console.log("Error deleting cart item:", err);
 				// Optionally revert the optimistic update
 				dispatch({ type: "SET_CART", payload: state.cart });
+				toast.error("خطا در حذف کتاب از سبد خرید");
 			}
 		} else {
 			const updatedCart = reducer(state, {
@@ -233,6 +245,7 @@ export function CartProvider({ children }) {
 				payload: { bookId },
 			}).cart;
 			localStorage.setItem(`cart_${guestId}`, JSON.stringify(updatedCart));
+			toast.success("کتاب از سبد خرید حذف شد");
 		}
 	};
 
@@ -255,8 +268,10 @@ export function CartProvider({ children }) {
 				if (!response.ok) throw new Error("Failed to sync cart");
 				localStorage.removeItem(`cart_${guestId}`);
 				console.log("Guest cart synced and cleared");
+				// toast.success("سبد خرید با موفقیت همگام‌سازی شد");
 			} catch (err) {
 				console.log("Error syncing cart:", err);
+				toast.error("خطا در همگام‌سازی سبد خرید");
 			}
 		}
 
@@ -267,8 +282,10 @@ export function CartProvider({ children }) {
 			if (!response.ok) throw new Error("Failed to fetch cart");
 			const data = await response.json();
 			dispatch({ type: "SET_CART", payload: data.cart });
+			// toast.success("سبد خرید بارگذاری شد");
 		} catch (err) {
 			console.log("Error fetching cart:", err);
+			toast.error("خطا در بارگذاری سبد خرید");
 		}
 	};
 
@@ -288,4 +305,10 @@ export function CartProvider({ children }) {
 }
 
 // useCart hook
-export const useCart = () => useContext(CartContext);
+export const useCart = () => {
+	const context = useContext(CartContext);
+	if (!context) {
+		throw new Error("useCart must be used within a CartProvider");
+	}
+	return context;
+};
