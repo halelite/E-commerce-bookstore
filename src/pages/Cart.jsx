@@ -5,6 +5,7 @@ import minus from "../assets/icons/remove_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import { useCart } from "../context/cart-context";
 import { useAuth } from "../context/auth-context";
 import { useNavigate } from "react-router";
+import Skeleton from "react-loading-skeleton";
 
 function Cart() {
 	const { cart, editCartItem, deleteCartItem, syncCart } = useCart();
@@ -67,6 +68,26 @@ function Cart() {
 		}
 	};
 
+	const renderSkeletonItem = () => (
+		<li className="skeleton-item">
+			<div className="book-shopped">
+				<Skeleton width={80} height={120} />
+				<div className="shop-info">
+					<Skeleton width={150} height={20} />
+					<Skeleton width={100} height={16} />
+				</div>
+			</div>
+			<div className="price-info">
+				<div className="change-count">
+					<Skeleton width={30} height={30} />
+					<Skeleton width={30} height={20} />
+					<Skeleton width={30} height={30} />
+				</div>
+				<Skeleton width={80} height={20} />
+			</div>
+		</li>
+	);
+
 	let boughtItems = "";
 	if (cart.length > 0) {
 		boughtItems = cart.map((book) => {
@@ -116,7 +137,7 @@ function Cart() {
 			<div className="carts-section">
 				<p>سبد خرید</p>
 				<div className="main-cart">
-					<ul>{boughtItems ? boughtItems : "سبد خرید شما خالی است."}</ul>
+					{/* <ul>{boughtItems ? boughtItems : "سبد خرید شما خالی است."}</ul>
 					<div className="final-check">
 						<p>
 							قیمت کل:
@@ -126,7 +147,34 @@ function Cart() {
 						<button type="button" onClick={handleCheckout}>
 							پرداخت
 						</button>
-					</div>
+					</div> */}
+
+					{loading ? (
+						<>
+							<ul>
+								{Array(3)
+									.fill()
+									.map((_, index) => (
+										<div key={index}>{renderSkeletonItem()}</div>
+									))}
+							</ul>
+							<Skeleton width={250} height={150} className="final-check" />
+						</>
+					) : (
+						<>
+							<ul>{boughtItems ? boughtItems : "سبد خرید شما خالی است."}</ul>
+							<div className="final-check">
+								<p>
+									قیمت کل:
+									<span ref={fullPriceRef} className="full-price"></span>
+									<span className="currency">تومان</span>
+								</p>
+								<button type="button" onClick={handleCheckout}>
+									پرداخت
+								</button>
+							</div>
+						</>
+					)}
 				</div>
 			</div>
 		</Layout>

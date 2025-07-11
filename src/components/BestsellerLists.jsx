@@ -14,11 +14,6 @@ function BestsellerLists() {
 
 	async function handleAddtoCart(bookData) {
 		console.log("i am in >>>>", bookData);
-		/* dispatch({
-			type: "ADD_ITEM",
-			payload: bookData,
-			count: 1,
-		}); */
 		await addToCart(bookData);
 	}
 

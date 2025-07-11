@@ -10,7 +10,7 @@ function AuthorsSection() {
 	const [authors, setAuthors] = useState([]);
 
 	useEffect(() => {
-		fetch(`/data/author.json`)
+		fetch(`${import.meta.env.VITE_API_URL}/api/authors`)
 			.then((res) => {
 				if (res.ok) {
 					return res.json();
@@ -19,7 +19,8 @@ function AuthorsSection() {
 				}
 			})
 			.then((data) => {
-				for (let i = 0; i < 10; i++) {
+				setAuthors(data);
+				/* for (let i = 0; i < 10; i++) {
 					setAuthors((authors) => [
 						...authors,
 						{
@@ -29,16 +30,20 @@ function AuthorsSection() {
 							slug: data.authors[i].slug,
 						},
 					]);
-				}
+				} */
 			})
 			.catch((err) => console.log(err));
 	}, []);
 
 	const authorLists = authors.map((author) => {
 		return (
-			<div key={author.id} className="slider-item">
+			<div key={author._id} className="slider-item">
 				<Link to={`authors/${author.slug}`}>
-					<img id="author-img" src={author.image} alt="author image" />
+					<img
+						id="author-img"
+						src={`${import.meta.env.VITE_API_URL}${author.image}`}
+						alt="author image"
+					/>
 				</Link>
 				<p>{author.fullName}</p>
 			</div>
