@@ -151,7 +151,7 @@ body {
 	border: none;
 	padding: 0 10px;
 	width: 370px;
-	flex-grow: 1;
+	flex: 1;
 }
 
 .searchbar input::placeholder {
