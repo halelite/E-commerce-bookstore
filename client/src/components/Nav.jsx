@@ -50,18 +50,20 @@ function Nav() {
 	return (
 		<>
 			<div className="navbar">
-				<div
-					className="menu-icon"
-					onClick={() => setMenuActive((curr) => !curr)}
-				>
-					{!menuActive ? (
-						<img id="menu" src={menu} alt="menu" />
-					) : (
-						<img id="close-menu" src={close} alt="close" />
-					)}
-				</div>
-				<div className="logo">
-					<img src={logo} alt="logo" />
+				<div className="menu-log-wrapper">
+					<div
+						className="menu-icon"
+						onClick={() => setMenuActive((curr) => !curr)}
+					>
+						{!menuActive ? (
+							<img id="menu" src={menu} alt="menu" />
+						) : (
+							<img id="close-menu" src={close} alt="close" />
+						)}
+					</div>
+					<div className="logo">
+						<img src={logo} alt="logo" />
+					</div>
 				</div>
 
 				<Searchbar />

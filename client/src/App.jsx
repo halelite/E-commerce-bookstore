@@ -13,6 +13,9 @@ import Cart from "./pages/Cart";
 import { useEffect } from "react";
 import Profile from "./pages/Profile";
 import { Bounce, ToastContainer } from "react-toastify";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 function App() {
 	const { pathname } = useLocation();

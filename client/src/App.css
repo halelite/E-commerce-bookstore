@@ -184,11 +184,12 @@ body {
 }
 
 .account .sign-in-up {
-	margin-left: 20px;
+	/* margin-left: 20px; */
 	border: 1px solid #2f4858;
 	padding: 5px;
 	border-radius: 4px;
 	cursor: pointer;
+	text-align: center;
 }
 
 .account .sign-in-up a {
@@ -325,6 +326,7 @@ body {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+	padding: 1.1vw;
 }
 
 .promotion .description {
@@ -432,9 +434,15 @@ body {
 }
 
 .slide {
-	display: flex;
-	align-items: center;
+	/* display: flex; */
+	/* align-items: center; */
+	/* width: 100%; */
 	position: relative;
+	/* padding: 0 24px; */
+}
+
+.slider {
+	padding: 10px 0 !important;
 }
 
 #next {
@@ -454,18 +462,18 @@ body {
 	cursor: pointer;
 }
 
-.books-container {
+/* .books-container {
 	overflow-x: hidden;
 	height: 315px;
-}
+} */
 
-.slide-container {
+/* .slide-container {
 	width: fit-content;
 	display: flex;
 	position: relative;
 	right: 0;
 	transition: all 1s ease;
-}
+} */
 
 .info-bar p:first-child {
 	color: #2f4858;
@@ -495,9 +503,6 @@ body {
 	border: 1px solid #aaa;
 	padding: 8px;
 	box-shadow: 1px 1px 3px #ccc;
-	width: 185px;
-	height: 290px;
-	margin-left: 20px;
 	border-radius: 5px;
 }
 
@@ -505,12 +510,24 @@ body {
 	box-shadow: 1px 1px 4px 3px #aaa;
 }
 
+.new .slider-item {
+	/* width: 185px !important; */
+	/* height: 290px; */
+}
+
 .slider-item img,
 .slider-item img {
-	width: 130px;
+	/* width: 130px; */
+	width: calc(100% - 10%);
 	margin: auto;
 	display: block;
 	margin-bottom: 8px;
+}
+
+.title-rate {
+	display: flex;
+	align-items: self-start;
+	gap: 5px;
 }
 
 .slider-item .item-info {
@@ -518,15 +535,28 @@ body {
 	height: 70px;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-between;
 	position: relative;
+	text-overflow: ellipsis;
+	gap: 5px;
+}
+
+.price-info {
+	display: flex;
+	align-items: center;
+}
+
+.price-info .currency {
+	font-size: 12px;
+	margin-inline-start: 3px;
+	color: #545353;
 }
 
 .slider-item .item-info p {
 	width: 80%;
 	font-size: 14px;
 	color: #2f4858;
-	margin-bottom: 5px;
+	/* margin-bottom: 5px; */
 }
 
 .slider-item .item-info #price {
@@ -541,9 +571,9 @@ body {
 	padding-top: 3%;
 	border-radius: 5px;
 	color: var(--orange);
-	position: absolute;
+	/* position: absolute;
 	top: 3px;
-	left: 5px;
+	left: 5px; */
 	display: flex;
 	flex-direction: row-reverse;
 }
@@ -581,18 +611,16 @@ body {
 .authors .slider-item {
 	text-align: center;
 	height: auto;
-	width: 210px;
+	/* width: 210px !important; */
 }
 
 /* subscription section */
 .subscription {
-	/* margin: 0 -115px; */
 	margin: 0 -8vw;
 	background: url("./assets/images/Shiny-Overlay-bg2.svg");
 	background-repeat: no-repeat;
 	background-size: cover;
 	height: 130px;
-	/* padding: 0 115px; */
 	padding: 0 8vw;
 	display: flex;
 	justify-content: space-between;
@@ -1068,27 +1096,19 @@ form button {
 }
 
 /* tablet view */
-@media screen and (max-width: 767px) {
-	body {
-		padding: 0 35px;
-	}
-
+/* @media screen and (max-width: 767px) {
 	.logo img {
 		width: 100px;
 		height: 55px;
 	}
 
 	.hero-section {
-		margin: 0 -35px;
+		margin: 0 -8vw;
 	}
 
 	.subscription {
-		margin: 0 -35px;
+		margin: 0 -8vw;
 		padding: 0 20px;
-	}
-
-	.footer-container {
-		padding: 10px 20px;
 	}
 
 	.promotion img {
@@ -1122,25 +1142,14 @@ form button {
 	.wu-item p {
 		font-size: 0.9rem;
 	}
-}
+} */
 
 /* mobile view */
-@media screen and (max-width: 376px) {
-	/* :root {
-		--footerHeight: 500px;
-	} */
-
-	body {
-		padding: 0 10px;
-	}
-
+/* 376px */
+@media screen and (max-width: 767px) {
 	.menu-icon {
 		display: block;
 		z-index: 1010;
-	}
-
-	.logo {
-		margin-right: -70px;
 	}
 
 	.logo img {
@@ -1153,6 +1162,12 @@ form button {
 		padding-bottom: 66px;
 		border-bottom: 1px solid #2f4858;
 		margin-bottom: -1px;
+	}
+
+	.menu-log-wrapper {
+		display: flex;
+		align-items: center;
+		gap: 10px;
 	}
 
 	.searchbar {
@@ -1179,7 +1194,8 @@ form button {
 	}
 
 	.hero-section {
-		margin: 0 -10px;
+		/* margin: 0 -10px; */
+		margin: 0 -8vw;
 		margin-bottom: 30px;
 		height: calc(100vh - 120px);
 	}
@@ -1191,8 +1207,8 @@ form button {
 	}
 
 	.promotion img {
-		width: 280px;
-		height: 220px;
+		width: 390px;
+		height: 300px;
 	}
 
 	.promotion .description {
@@ -1202,14 +1218,15 @@ form button {
 	}
 
 	.promotion .description h1 {
-		color: var(--orange);
-		font-size: 2rem;
+		/* color: var(--orange); */
+		/* font-size: 2rem; */
+		font-size: 2.3rem;
 		margin-top: -25px;
 		margin-bottom: 5px;
 	}
 
 	.promotion .description p {
-		font-size: 0.9rem;
+		font-size: 1.1rem;
 		margin-top: 0;
 	}
 
@@ -1302,10 +1319,6 @@ form button {
 		padding: 1px 0;
 	}
 
-	.slide {
-		margin: 0 24px;
-	}
-
 	.slider-item {
 		padding: 8px;
 		width: 140px;
@@ -1313,35 +1326,41 @@ form button {
 		margin-left: 20px;
 	}
 
-	.slider-item img,
+	/* .slider-item img,
 	.slider-item img {
 		width: 100px;
 		margin: auto;
 		display: block;
 		margin-bottom: 8px;
-	}
+	} */
 
 	#author-img {
 		width: 100%;
-		height: 160px;
+		/* height: 160px; */
 		clip-path: circle(46%);
 	}
 
 	.authors .slider-item {
 		text-align: center;
 		height: auto;
-		width: 165px;
+		/* width: 165px; */
 	}
 
 	.authors {
-		margin-bottom: 10px;
+		margin-bottom: 40px;
 	}
 
 	.subscription {
-		margin: 0 -10px;
-		padding: 14px 10px;
+		/* margin: 0 -10px; */
+		margin: 0 -8vw;
+		padding: 14px 3vw;
 		flex-direction: column;
 		height: auto;
+		align-items: start;
+	}
+
+	.subscription .sub-description {
+		width: 100%;
 	}
 
 	.subscription .sub-description h3 {
@@ -1355,7 +1374,7 @@ form button {
 	}
 
 	.info {
-		margin: 0 10px;
+		/* margin: 0 10px; */
 		text-align: center;
 	}
 
@@ -1365,7 +1384,13 @@ form button {
 
 	.footer-container {
 		flex-direction: column;
-		padding: 20px 5px;
+		padding: 20px 2vw;
+		align-items: center;
+		gap: 20px;
+	}
+
+	.follow {
+		margin-right: 0;
 	}
 
 	.company-info {
@@ -1423,5 +1448,28 @@ form button {
 		height: 150px;
 		margin-right: 0;
 		margin-top: 20px;
+	}
+}
+
+@media screen and (max-width: 376px) {
+	.promotion img {
+		width: 280px;
+		height: 220px;
+	}
+
+	.promotion .description h1 {
+		/* color: var(--orange); */
+		font-size: 2rem;
+		margin-top: -25px;
+		margin-bottom: 5px;
+	}
+
+	.promotion .description p {
+		font-size: 0.9rem;
+		margin-top: 0;
+	}
+
+	.account .sign-in-up {
+		font-size: 12px;
 	}
 }
