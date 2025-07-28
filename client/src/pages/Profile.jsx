@@ -1,10 +1,22 @@
 import Layout from "../components/Layout";
+import { useAuth } from "../context/auth-context";
 
 function Profile() {
+	const { user } = useAuth();
+
 	return (
 		<Layout>
-			<h1>Profile Page</h1>
-			<p>This is the user's profile page.</p>
+			<div className="top-title">پروفایل</div>
+
+			<div className="user-info-item">
+				<span>نام کاربری:</span>
+				<input readOnly disabled type="text" value={user.name} />
+			</div>
+
+			<div className="user-info-item">
+				<span>ایمیل:</span>
+				<input readOnly disabled type="email" value={user.email} />
+			</div>
 		</Layout>
 	);
 }

@@ -19,7 +19,7 @@ function Books() {
 	});
 	const { addToCart } = useCart();
 
-	const fetchBooks = async (page = 1, limit = 10) => {
+	const fetchBooks = async (page = 1, limit = 12) => {
 		setIsLoading(true);
 		try {
 			const url = new URL(`${import.meta.env.VITE_API_URL}/api/books`);
@@ -117,7 +117,7 @@ function Books() {
 									<div className="all-book-grid">
 										{books.map((book) => (
 											<div key={book._id} className="slider-item">
-												<Link to={`books/${book.slug}`}>
+												<Link to={`/books/${book.slug}`}>
 													<img
 														src={`${import.meta.env.VITE_API_URL}${book.image}`}
 														alt="book image"

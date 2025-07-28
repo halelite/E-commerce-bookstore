@@ -50,7 +50,7 @@ const getBooks = async (req, res, next) => {
 };
 
 // @desc   Get single book
-// @route  Get /api/books/:id
+// @route  Get /api/books/:slug
 const getBook = async (req, res, next) => {
 	try {
 		const book = await Book.findOne({ slug: req.params.slug });

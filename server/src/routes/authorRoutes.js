@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.get("/", getAuthors);
 router.get("/search", getSearchedAuthors);
-router.get("/:id", getAuthor);
+router.get("/:slug", getAuthor);
 
 module.exports = router;

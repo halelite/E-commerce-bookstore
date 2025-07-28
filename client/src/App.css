@@ -611,13 +611,13 @@ body {
 	align-items: center;
 }
 
-.price-info {
+.slider-item .price-info {
 	display: flex;
 	align-items: center;
 	flex: 1;
 }
 
-.price-info .currency {
+.slider-item .price-info .currency {
 	font-size: 12px;
 	margin-inline-start: 3px;
 	color: #545353;
@@ -774,7 +774,8 @@ body {
 }
 
 /* books page */
-.books-top-title {
+.books-top-title,
+.top-title {
 	font-size: 17px;
 	margin: 17px 0;
 }
@@ -846,6 +847,47 @@ body {
 	background-color: var(--orange);
 	cursor: pointer;
 	color: white;
+}
+
+/* author info page */
+.author-info {
+	padding: 2rem 0;
+}
+.author-info .basic-info {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.author-info .basic-info img {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	margin-left: 20px;
+}
+
+.author-info .author-bio {
+	text-align: justify;
+}
+
+/* profile page */
+.user-info-item {
+	margin-bottom: 10px;
+}
+
+.user-info-item span {
+	margin-left: 5px;
+	font-size: 15px;
+}
+
+.user-info-item input {
+	padding: 5px;
+	font-family: vazir;
+	min-width: 300px;
+}
+
+.user-info-item input[type="email"] {
+	direction: ltr;
 }
 
 /* footer section */

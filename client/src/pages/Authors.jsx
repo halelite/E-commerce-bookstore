@@ -5,8 +5,10 @@ import Pagination from "../components/pagination";
 import searchIcon from "../assets/icons/search_24dp_FILL0_wght400_GRAD0_opsz24.svg";
 import { useCallback } from "react";
 import { debounce } from "../assets/debounce";
+import { Link, useNavigate } from "react-router";
 
 function Authors() {
+	const navigate = useNavigate();
 	const [SearchResult, setSearchResult] = useState([]);
 	const [authors, setAuthors] = useState([]);
 	const [pagination, setPagination] = useState({
@@ -36,7 +38,6 @@ function Authors() {
 		}
 
 		try {
-			console.log("inputval: ", inputVal);
 			setIsLoading(true);
 			const res = await fetch(
 				`${
@@ -104,7 +105,12 @@ function Authors() {
 			<div className="pagination-wrapper">
 				<ul className="authors-list">
 					{SearchResult.map((author) => (
-						<li key={author._id}>{author.fullName}</li>
+						<li
+							key={author._id}
+							onClick={() => navigate(`/authors/${author.slug}`)}
+						>
+							{author.fullName}
+						</li>
 					))}
 				</ul>
 				<Pagination
@@ -119,7 +125,12 @@ function Authors() {
 			<div className="pagination-wrapper">
 				<ul className="authors-list">
 					{authors?.map((author) => (
-						<li key={author._id}>{author.fullName}</li>
+						<li
+							key={author._id}
+							onClick={() => navigate(`/authors/${author.slug}`)}
+						>
+							{author.fullName}
+						</li>
 					))}
 				</ul>
 				<Pagination

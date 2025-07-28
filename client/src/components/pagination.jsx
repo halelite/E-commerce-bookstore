@@ -41,7 +41,7 @@ function Pagination({ page, totalPages, onPageChange }) {
 			<button
 				className="pag-control"
 				onClick={() => onPageChange(page - 1)}
-				disabled={page === 1}
+				disabled={page == 1}
 			>
 				قبلی
 			</button>
@@ -54,7 +54,7 @@ function Pagination({ page, totalPages, onPageChange }) {
 					<span key={id}>...</span>
 				) : (
 					<button
-						className={page === item ? "active-pagination" : ""}
+						className={page == item ? "active-pagination" : ""}
 						key={item}
 						onClick={() => onPageChange(item)}
 					>

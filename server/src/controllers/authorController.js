@@ -30,16 +30,18 @@ const getAuthors = async (req, res, next) => {
 };
 
 // @desc   Get single author
-// @route  Get /api/authors/:id
+// @route  Get /api/authors/:slug
 const getAuthor = async (req, res, next) => {
 	try {
-		const author = await Author.findById(req.params.id);
+		const author = await Author.findOne({ slug: req.params.slug });
 
 		if (!author) {
 			const error = new Error("Author not found");
-			error.status(404);
+			error.status = 404;
 			return next(error);
 		}
+
+		res.status(200).json(author);
 	} catch (err) {
 		next(err);
 	}
