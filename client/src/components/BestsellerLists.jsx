@@ -28,7 +28,7 @@ function BestsellerLists() {
 				}
 			})
 			.then((data) => {
-				setBooks(data);
+				setBooks(data.books);
 				/* for (let i = 0; i < 10; i++) {
 					setBooks((books) => [
 						...books,
@@ -142,16 +142,20 @@ function BestsellerLists() {
 										<img src={star} alt="star" /> 5.0
 									</span>
 								</div>
-								<div className="price-info">
-									<span id="price">{book.price.toLocaleString()}</span>
-									<span className="currency">تومان</span>
+								<div className="price-add">
+									<div className="price-info">
+										<span id="price">
+											{book.price.toLocaleString()}
+											<span className="currency">تومان</span>
+										</span>
+									</div>
+									<button
+										onClick={() => handleAddtoCart(book)}
+										className="add-to-cart"
+									>
+										<img src={addIcon} alt="plus" />
+									</button>
 								</div>
-								<button
-									onClick={() => handleAddtoCart(book)}
-									className="add-to-cart"
-								>
-									<img src={addIcon} alt="plus" />
-								</button>
 							</div>
 						</SwiperSlide>
 					))}

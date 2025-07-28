@@ -35,26 +35,7 @@ function NewBookLists() {
 				}
 			})
 			.then((data) => {
-				setBooks(data);
-				/* for (let i = 10; i > 0; i--) {
-					setBooks((books) => [
-						...books,
-						{
-							id: data.items[i].id,
-							title: data.items[i].volumeInfo.title,
-							rating: 5.0,
-							price: 112000,
-							// image: data.items[i].volumeInfo.imageLinks.thumbnail
-							index: i,
-							publisher: "افق",
-							category: "رمان",
-							image: images[i],
-							slug: data.items[i].volumeInfo.subtitle,
-							description: data.items[i].volumeInfo.description,
-							author: data.items[i].volumeInfo.authors,
-						},
-					]);
-				} */
+				setBooks(data.books);
 			})
 			.catch((err) => console.log(err));
 	}, []);
@@ -100,6 +81,7 @@ function NewBookLists() {
 					alt="next"
 				/>
 				<Swiper
+					className="slider"
 					modules={[Navigation, FreeMode, Mousewheel]}
 					slidesOffsetAfter={5}
 					spaceBetween={10}
@@ -117,27 +99,21 @@ function NewBookLists() {
 					breakpoints={{
 						340: {
 							slidesPerView: 2,
-							// slidesPerGroup: 2,
 						},
 						640: {
 							slidesPerView: 3,
-							// slidesPerGroup: 3,
 						},
 						768: {
 							slidesPerView: 4,
-							// slidesPerGroup: 4,
 						},
 						1024: {
 							slidesPerView: 5,
-							// slidesPerGroup: 5,
 						},
 						1212: {
 							slidesPerView: 6,
-							// slidesPerGroup: 6,
 						},
 						1280: {
 							slidesPerView: 7,
-							// slidesPerGroup: 7,
 						},
 					}}
 				>
@@ -148,25 +124,29 @@ function NewBookLists() {
 									src={`${import.meta.env.VITE_API_URL}${book.image}`}
 									alt="book image"
 								/>
+								<div className="item-info">
+									<div className="title-rate">
+										<p>{book.title}</p>
+										<span id="rating">
+											<img src={star} alt="star" /> 5.0
+										</span>
+									</div>
+									<div className="price-add">
+										<div className="price-info">
+											<span id="price">
+												{book.price.toLocaleString()}
+												<span className="currency">تومان</span>
+											</span>
+										</div>
+										<button
+											onClick={() => handleAddtoCart(book)}
+											className="add-to-cart"
+										>
+											<img src={addIcon} alt="plus" />
+										</button>
+									</div>
+								</div>
 							</Link>
-							<div className="item-info">
-								<div className="title-rate">
-									<p>{book.title}</p>
-									<span id="rating">
-										<img src={star} alt="star" /> 5.0
-									</span>
-								</div>
-								<div className="price-info">
-									<span id="price">{book.price.toLocaleString()}</span>
-									<span className="currency">تومان</span>
-								</div>
-								<button
-									onClick={() => handleAddtoCart(book)}
-									className="add-to-cart"
-								>
-									<img src={addIcon} alt="plus" />
-								</button>
-							</div>
 						</SwiperSlide>
 					))}
 				</Swiper>

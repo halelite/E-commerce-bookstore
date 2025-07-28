@@ -6,13 +6,14 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const token = localStorage.getItem("token");
 		const guestId = localStorage.getItem("guestId") || crypto.randomUUID();
 		localStorage.setItem("guestId", guestId);
 		if (token) {
+			setLoading(true);
 			fetch(`${import.meta.env.VITE_API_URL}/api/users/me`, {
 				headers: {
 					Authorization: "Bearer " + token,

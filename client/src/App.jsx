@@ -16,6 +16,7 @@ import { Bounce, ToastContainer } from "react-toastify";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import Books from "./pages/books";
 
 function App() {
 	const { pathname } = useLocation();
@@ -38,6 +39,7 @@ function App() {
 				<Route path="/categories/:slug" element={<Category />} />
 				<Route path="/cart" element={<Cart />} />
 				<Route path="/profile" element={<Profile />} />
+				<Route path="/books" element={<Books />} />
 			</Routes>
 			<ToastContainer
 				position="top-right"

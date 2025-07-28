@@ -12,6 +12,7 @@ function PagesSection({ active }) {
 		"رمان",
 		"معمایی-جنایی",
 		"عاشقانه",
+		"Fiction",
 	]);
 
 	function handleHover() {
@@ -35,7 +36,13 @@ function PagesSection({ active }) {
 	const categoryLinks = options.map((option) => {
 		return (
 			<li key={option}>
-				<Link to={`/categories/${option}`}>{option}</Link>
+				<Link
+					to={`/books${
+						option !== "همه" ? `?category=${encodeURIComponent(option)}` : ""
+					}`}
+				>
+					{option}
+				</Link>
 			</li>
 		);
 	});

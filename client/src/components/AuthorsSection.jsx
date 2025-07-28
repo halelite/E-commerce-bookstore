@@ -21,7 +21,7 @@ function AuthorsSection() {
 				}
 			})
 			.then((data) => {
-				setAuthors(data);
+				setAuthors(data.authors);
 				/* for (let i = 0; i < 10; i++) {
 					setAuthors((authors) => [
 						...authors,
@@ -70,6 +70,7 @@ function AuthorsSection() {
 					alt="next"
 				/>
 				<Swiper
+					className="slider"
 					modules={[Navigation, FreeMode, Mousewheel]}
 					spaceBetween={10}
 					slidesPerView={1}
@@ -86,27 +87,21 @@ function AuthorsSection() {
 					breakpoints={{
 						320: {
 							slidesPerView: 1,
-							// slidesPerGroup: 2,
 						},
 						500: {
 							slidesPerView: 2,
-							// slidesPerGroup: 3,
 						},
 						768: {
 							slidesPerView: 3,
-							// slidesPerGroup: 4,
 						},
 						1024: {
 							slidesPerView: 4,
-							// slidesPerGroup: 5,
 						},
 						1212: {
 							slidesPerView: 5,
-							// slidesPerGroup: 6,
 						},
 						1280: {
 							slidesPerView: 6,
-							// slidesPerGroup: 7,
 						},
 					}}
 				>
