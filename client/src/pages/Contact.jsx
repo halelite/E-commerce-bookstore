@@ -1,11 +1,11 @@
 import Layout from "../components/Layout";
 
 function Contact() {
-    return (
-        <Layout>
-            contact us
-        </Layout>
-    )
+	return (
+		<Layout>
+			<div className="top-title">تماس با ما</div>
+		</Layout>
+	);
 }
 
-export default Contact
+export default Contact;

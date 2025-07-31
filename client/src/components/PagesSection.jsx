@@ -9,10 +9,14 @@ function PagesSection({ active }) {
 	const [options, setOptions] = useState([
 		"همه",
 		"زبان اصلی",
-		"رمان",
-		"معمایی-جنایی",
+		"ادبیات کلاسیک",
+		"معمایی",
 		"عاشقانه",
-		"Fiction",
+		"سیاسی",
+		"ماجراجویی",
+		"فانتزی",
+		"نمایشنامه",
+		"فلسفی",
 	]);
 
 	function handleHover() {
@@ -60,12 +64,14 @@ function PagesSection({ active }) {
 					onClick={() => setShow((curr) => !curr)}
 					id="category"
 				>
-					دسته بندی
-					{!show ? (
-						<img src={arrowDown} alt="down" />
-					) : (
-						<img src={arrowUp} alt="up" />
-					)}
+					<div className="category-menu-item">
+						دسته بندی
+						{!show ? (
+							<img src={arrowDown} alt="down" />
+						) : (
+							<img src={arrowUp} alt="up" />
+						)}
+					</div>
 					<ul ref={ref} className="cat-list">
 						{categoryLinks}
 					</ul>

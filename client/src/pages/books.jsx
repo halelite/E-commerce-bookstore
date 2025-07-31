@@ -118,10 +118,15 @@ function Books() {
 										{books.map((book) => (
 											<div key={book._id} className="slider-item">
 												<Link to={`/books/${book.slug}`}>
-													<img
-														src={`${import.meta.env.VITE_API_URL}${book.image}`}
-														alt="book image"
-													/>
+													<div className="img-wrapper">
+														<img
+															className="book-img"
+															src={`${import.meta.env.VITE_API_URL}${
+																book.image
+															}`}
+															alt="book image"
+														/>
+													</div>
 													<div className="item-info">
 														<div className="title-rate">
 															<p>

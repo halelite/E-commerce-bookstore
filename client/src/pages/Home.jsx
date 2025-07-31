@@ -5,17 +5,16 @@ import Layout from "../components/Layout";
 import Subscription from "../components/Subscription";
 import WhyUs from "../components/WhyUs";
 
-
 function Home() {
-    return (
-        <Layout>
-            <HeroSection />
-            <WhyUs />
-            <BookLists />
-            <AuthorsSection />
-            <Subscription />
-        </Layout>
-    )
+	return (
+		<Layout>
+			<HeroSection />
+			<WhyUs />
+			<BookLists />
+			<AuthorsSection />
+			<Subscription />
+		</Layout>
+	);
 }
 
-export default Home
+export default Home;

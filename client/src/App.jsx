@@ -6,8 +6,7 @@ import Contact from "./pages/Contact";
 import Login from "./forms/Login";
 import Register from "./forms/Register";
 import Authors from "./pages/Authors";
-import AuthorInfo from "./components/AuthorInfo";
-import Product from "./pages/Product";
+import AuthorInfo from "./pages/AuthorInfo";
 import Category from "./pages/Category";
 import Cart from "./pages/Cart";
 import { useEffect } from "react";
@@ -17,6 +16,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Books from "./pages/books";
+import ProductInfo from "./pages/ProductInfo";
 
 function App() {
 	const { pathname } = useLocation();
@@ -35,7 +35,7 @@ function App() {
 				<Route path="/register" element={<Register />} />
 				<Route path="/authors" element={<Authors />} />
 				<Route path="/authors/:slug" element={<AuthorInfo />} />
-				<Route path="/books/:slug" element={<Product />} />
+				<Route path="/books/:slug" element={<ProductInfo />} />
 				<Route path="/categories/:slug" element={<Category />} />
 				<Route path="/cart" element={<Cart />} />
 				<Route path="/profile" element={<Profile />} />

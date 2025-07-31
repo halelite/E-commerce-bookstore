@@ -9,6 +9,8 @@ const bookSchema = new mongoose.Schema({
 	slug: { type: String, required: true },
 	description: String,
 	image: String,
+	isBestSeller: Boolean,
+	isNewBook: Boolean,
 	category: [String],
 	publisher: String,
 	publishedDate: String,

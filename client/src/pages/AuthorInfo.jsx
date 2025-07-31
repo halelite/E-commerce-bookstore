@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import Layout from "./Layout";
+import Layout from "../components/Layout";
 import { useEffect, useState } from "react";
 
 function AuthorInfo() {

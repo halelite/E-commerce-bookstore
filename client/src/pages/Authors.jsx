@@ -64,7 +64,7 @@ function Authors() {
 		debounce((searchTerm) => fetchSearchResult(searchTerm, 1), 1000)
 	);
 
-	const fetchAuthors = async (page = 1, limit = 2) => {
+	const fetchAuthors = async (page = 1, limit = 10) => {
 		setIsLoading(true);
 		try {
 			const res = await fetch(

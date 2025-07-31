@@ -6,9 +6,14 @@ export function CustomSelect({ setSelectedCategory }) {
 	const [options, setOptions] = useState([
 		"همه",
 		"زبان اصلی",
-		"رمان",
-		"معمایی-جنایی",
+		"ادبیات کلاسیک",
+		"معمایی",
 		"عاشقانه",
+		"سیاسی",
+		"ماجراجویی",
+		"فانتزی",
+		"نمایشنامه",
+		"فلسفی",
 	]);
 	const [show, setShow] = useState(false);
 	const [selectedValue, setSelectedValue] = useState(null);
@@ -34,7 +39,8 @@ export function CustomSelect({ setSelectedCategory }) {
 				<div>{!selectedValue ? "دسته بندی" : selectedValue}</div>
 				{!show ? <img src={arrowDown} /> : <img src={arrowUp} />}
 			</div>
-			<ul>{show && optionsList}</ul>
+			{show && <ul>{optionsList}</ul>}
+			{/* <ul>{show && optionsList}</ul> */}
 		</>
 	);
 }
