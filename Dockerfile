@@ -3,17 +3,17 @@ FROM node:20-alpine
 # Set working directory inside the container
 WORKDIR /app
 
-# Copy only backend package files
+# Copy backend's package files
 COPY server/package*.json ./
 
-# Install only production dependencies
+# Install backend dependencies
 RUN npm install --production
 
-# Copy the backend source code
+# Copy rest of the backend code
 COPY server ./
 
-# Expose the port your app listens on
-EXPOSE 3000
+# Expose the port your app runs on (change if needed)
+EXPOSE 5000
 
-# Run the backend app
+# Run backend entry point
 CMD ["node", "src/app.js"]
