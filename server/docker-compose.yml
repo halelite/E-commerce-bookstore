@@ -11,7 +11,7 @@ services:
             context: .
             args:
                 - ENV=$ENV
-            dockerfile: Dockerfile
+            dockerfile: ./server/Dockerfile
         ports:
             - 5000:5000
 
