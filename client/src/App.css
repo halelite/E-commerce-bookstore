@@ -646,6 +646,7 @@ body {
 .slider-item .price-add {
 	display: flex;
 	align-items: center;
+	gap: 2px;
 }
 
 .slider-item .price-info {
@@ -666,6 +667,12 @@ body {
 	font-size: 14px;
 	color: #2f4858;
 	/* margin-bottom: 5px; */
+	display: -webkit-box;
+	line-clamp: 2;
+	-webkit-line-clamp: 2; /* Limit to 2 lines */
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .slider-item .item-info #price {
@@ -1442,6 +1449,10 @@ form button {
 		/* min-width: none; */
 	}
 
+	.custom-select {
+		flex-shrink: 0;
+	}
+
 	.select {
 		font-size: 12px;
 	}
@@ -1671,7 +1682,7 @@ form button {
 	.subscription {
 		/* margin: 0 -10px; */
 		margin: 0 -8vw;
-		padding: 14px 3vw;
+		padding: 14px 8vw;
 		flex-direction: column;
 		height: auto;
 		align-items: start;
@@ -1702,7 +1713,7 @@ form button {
 
 	.footer-container {
 		flex-direction: column;
-		padding: 20px 2vw;
+		padding: 20px 8vw;
 		align-items: center;
 		gap: 20px;
 	}
@@ -1771,15 +1782,50 @@ form button {
 
 @media screen and (max-width: 580px) {
 	body {
-		padding: 0 7vw;
+		padding: 0 6vw;
+	}
+
+	.hero-section {
+		margin: 0 -6vw;
 	}
 
 	.all-book-grid {
 		grid-template-columns: repeat(2, 1fr);
 	}
+
+	.subscription {
+		margin: 0 -6vw;
+		padding: 14px 6vw;
+	}
+
+	.footer {
+		margin: 0 -6vw;
+	}
+
+	.footer-container {
+		padding: 20px 6vw;
+	}
 }
 
 @media screen and (max-width: 376px) {
+	body {
+		padding: 0 5vw;
+	}
+
+	.searchbar input {
+		/* width: 350px; */
+		padding: 7px;
+	}
+
+	.hero-section {
+		margin: 0 -5vw;
+	}
+
+	.subscription {
+		margin: 0 -5vw;
+		padding: 14px 5vw;
+	}
+
 	.promotion img {
 		width: 280px;
 		height: 220px;
@@ -1799,5 +1845,13 @@ form button {
 
 	.account .sign-in-up {
 		font-size: 12px;
+	}
+
+	.footer {
+		margin: 0 -5vw;
+	}
+
+	.footer-container {
+		padding: 20px 5vw;
 	}
 }
