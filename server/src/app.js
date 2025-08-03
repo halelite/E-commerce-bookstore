@@ -42,5 +42,5 @@ app.use(notFound);
 // Error handler middleware (must be after routes)
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
