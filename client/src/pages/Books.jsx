@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { Link, useSearchParams } from "react-router";
+import {Link, useNavigate, useSearchParams} from "react-router";
 import Layout from "../components/Layout";
 import Pagination from "../components/pagination";
 import { useCart } from "../context/cart-context";
@@ -8,6 +8,7 @@ import star from "../assets/icons/icon-star.svg";
 import addIcon from "../assets/icons/add_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 
 function Books() {
+	const navigate = useNavigate();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [books, setBooks] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
@@ -118,8 +119,7 @@ function Books() {
 								<>
 									<div className="all-book-grid">
 										{books.map((book) => (
-											<div key={book._id} className="slider-item">
-												<Link to={`/books/${book.slug}`}>
+											<div key={book._id} className="slider-item" onClick={() => navigate(`/books/${book.slug}`)}>
 													<div className="img-wrapper">
 														<img
 															className="book-img"
@@ -155,7 +155,6 @@ function Books() {
 															</button>
 														</div>
 													</div>
-												</Link>
 											</div>
 										))}
 									</div>
