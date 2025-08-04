@@ -70,6 +70,15 @@ function AuthorsSection() {
 		return () => window.removeEventListener("resize", updateSlidesPerView);
 	}, []);
 
+	// Update Swiper states after books are loaded or slidesPerView changes
+	useEffect(() => {
+		if (!isLoading && swiperRef.current) {
+			swiperRef.current.update(); // Recalculate slides
+			setIsBeginning(swiperRef.current.isBeginning);
+			setIsEnd(swiperRef.current.isEnd || books.length <= slidesPerView);
+		}
+	}, [isLoading, authors, slidesPerView]);
+
 	/* const authorLists = authors.map((author) => {
 		return (
 			<div key={author._id} className="slider-item">

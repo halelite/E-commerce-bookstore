@@ -70,6 +70,15 @@ function NewBookLists() {
       });
   }, []);
 
+  // Update Swiper states after books are loaded or slidesPerView changes
+  useEffect(() => {
+    if (!isLoading && swiperRef.current) {
+      swiperRef.current.update(); // Recalculate slides
+      setIsBeginning(swiperRef.current.isBeginning);
+      setIsEnd(swiperRef.current.isEnd || books.length <= slidesPerView);
+    }
+  }, [isLoading, books, slidesPerView]);
+
   const bookLists = books.map((book) => {
     return (
       <div key={book._id} className="slider-item">
