@@ -132,7 +132,7 @@ function NewBookLists() {
             }}
             touchRatio={1}
             onSwiper={(swiper) => {
-              swiperRef.current = swiper; // Store Swiper instance
+              swiperRef.current = swiper;
               setIsBeginning(swiper.isBeginning); // Set initial state
               setIsEnd(swiper.isEnd);
             }}

@@ -82,6 +82,15 @@ function BestsellerLists() {
       });
   }, []);
 
+  // Update Swiper states after books are loaded or slidesPerView changes
+  useEffect(() => {
+    if (!isLoading && swiperRef.current) {
+      swiperRef.current.update(); // Recalculate slides
+      setIsBeginning(swiperRef.current.isBeginning);
+      setIsEnd(swiperRef.current.isEnd || books.length <= slidesPerView);
+    }
+  }, [isLoading, books, slidesPerView]);
+
   return (
     <div className="bestsellers">
       <div className="info-bar">
