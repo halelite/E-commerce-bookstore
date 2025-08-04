@@ -29,7 +29,7 @@ function Books() {
 			const authors = searchParams.getAll("author");
 			categories.forEach((cat) => {
 				if (cat !== "همه") {
-					url.searchParams.append("category", encodeURIComponent(cat));
+					url.searchParams.append("category", cat);
 				}
 			});
 			authors.forEach((author) =>
