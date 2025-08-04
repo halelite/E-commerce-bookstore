@@ -60,6 +60,10 @@ function PagesSection({ active, closeMenu, menuToggleButton }) {
 					to={`/books${
 						option !== "همه" ? `?category=${encodeURIComponent(option)}` : ""
 					}`}
+					onClick={() => {
+						closeMenu();
+						setShow(false);
+					}}
 				>
 					{option}
 				</Link>
