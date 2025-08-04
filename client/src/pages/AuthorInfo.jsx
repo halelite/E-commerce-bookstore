@@ -1,6 +1,7 @@
 import { useParams } from "react-router";
 import Layout from "../components/Layout";
 import { useEffect, useState } from "react";
+import AuthorBooksSection from "../components/AuthorBooksSection.jsx";
 
 function AuthorInfo() {
 	const { slug } = useParams();
@@ -49,6 +50,8 @@ function AuthorInfo() {
 					</div>
 
 					<div className="author-bio">{author.bio}</div>
+
+					<AuthorBooksSection author={author?.fullName} />
 				</div>
 			)}
 		</Layout>
