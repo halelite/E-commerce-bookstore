@@ -3,7 +3,7 @@ import back from "../assets/icons/arrow_back_ios_24dp_FILL0_wght300_GRAD0_opsz24
 import {useEffect, useRef, useState} from "react";
 import { authorImages } from "../assets/images";
 import go from "../assets/icons/keyboard_backspace_24dp_FILL0_wght300_GRAD0_opsz24.svg";
-import { Link } from "react-router";
+import {Link, useNavigate} from "react-router";
 import { handleClick } from "../assets/sliderBook";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode, Mousewheel } from "swiper/modules";
@@ -11,6 +11,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 function AuthorsSection() {
 	const swiperRef = useRef(null);
+	const navigate = useNavigate();
 	const [authors, setAuthors] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [slidesPerView, setSlidesPerView] = useState(1);
@@ -98,7 +99,7 @@ function AuthorsSection() {
 		<div className="authors">
 			<div className="info-bar">
 				<p>برخی از نویسنده‌ها</p>
-				<p>
+				<p onClick={() => navigate("/authors")}>
 					مشاهده همه
 					<img src={go} alt="go" />
 				</p>

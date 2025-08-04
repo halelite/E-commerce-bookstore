@@ -8,8 +8,10 @@ import star from "../assets/icons/icon-star.svg";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {FreeMode, Mousewheel, Navigation} from "swiper/modules";
 import Skeleton, {SkeletonTheme} from "react-loading-skeleton";
+import {useNavigate} from "react-router";
 
 function BestsellerLists() {
+  const navigate = useNavigate();
   const swiperRef = useRef(null);
   const {addToCart} = useCart();
   const [books, setBooks] = useState([]);
@@ -95,7 +97,7 @@ function BestsellerLists() {
     <div className="bestsellers">
       <div className="info-bar">
         <p>پرفروش ترین‌ها</p>
-        <p>
+        <p onClick={() => navigate("/books")}>
           مشاهده همه
           <img src={go} alt="go"/>
         </p>
