@@ -3,7 +3,7 @@ import {useRef, useState, useLayoutEffect, useEffect} from "react";
 import arrowUp from "../assets/icons/arrow_up_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import { Link, NavLink } from "react-router";
 
-function PagesSection({ active, closeMenu }) {
+function PagesSection({ active, closeMenu, menuToggleButton }) {
 	const ref = useRef();
 	const menuRef = useRef(null)
 	const [show, setShow] = useState(false);
@@ -32,7 +32,7 @@ function PagesSection({ active, closeMenu }) {
 
 	useEffect(() => {
 		function handleClickOutside(event) {
-			if (menuRef.current && !menuRef.current.contains(event.target)) {
+			if (menuRef.current && !menuToggleButton.current.contains(event.target) && !menuRef.current.contains(event.target)) {
 				closeMenu();        // close full menu
 				setShow(false);     // close dropdown
 			}

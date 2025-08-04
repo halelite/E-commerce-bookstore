@@ -13,6 +13,7 @@ import { useAuth } from "../context/auth-context";
 function Nav() {
 	const navigate = useNavigate();
 	const ref = useRef();
+  const menuToggleButton = useRef(null);
 	const [menuActive, setMenuActive] = useState(false);
 	const { cart, syncCart } = useCart();
 	const { isAuthenticated, logout, loading } = useAuth();
@@ -52,6 +53,7 @@ function Nav() {
 			<div className="navbar">
 				<div className="menu-log-wrapper">
 					<div
+            ref={menuToggleButton}
 						className="menu-icon"
 						onClick={() => setMenuActive((curr) => !curr)}
 					>
@@ -96,7 +98,7 @@ function Nav() {
 					)}
 				</div>
 			</div>
-			<PagesSection active={menuActive} closeMenu={() => setMenuActive(false)} />
+			<PagesSection active={menuActive} closeMenu={() => setMenuActive(false)} menuToggleButton={menuToggleButton} />
 		</>
 	);
 }
