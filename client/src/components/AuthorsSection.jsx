@@ -1,6 +1,6 @@
 import forward from "../assets/icons/arrow_forward_ios_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import back from "../assets/icons/arrow_back_ios_24dp_FILL0_wght300_GRAD0_opsz24.svg";
-import { useEffect, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import { authorImages } from "../assets/images";
 import go from "../assets/icons/keyboard_backspace_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import { Link } from "react-router";
@@ -10,9 +10,12 @@ import { Navigation, FreeMode, Mousewheel } from "swiper/modules";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 function AuthorsSection() {
+	const swiperRef = useRef(null);
 	const [authors, setAuthors] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [slidesPerView, setSlidesPerView] = useState(1);
+	const [isBeginning, setIsBeginning] = useState(true);
+	const [isEnd, setIsEnd] = useState(false);
 
 	useEffect(() => {
 		fetch(`${import.meta.env.VITE_API_URL}/api/authors`)
@@ -38,7 +41,14 @@ function AuthorsSection() {
 				} */
 			})
 			.catch((err) => console.log(err))
-			.finally(() => setIsLoading(false));
+			.finally(() => {
+				setIsLoading(false);
+				if (swiperRef.current) {
+					swiperRef.current.update(); // Ensure Swiper recalculates slides
+					setIsBeginning(swiperRef.current.isBeginning);
+					setIsEnd(swiperRef.current.isEnd);
+				}
+			});
 	}, []);
 
 	// Dynamically set slidesPerView based on window width
@@ -89,7 +99,7 @@ function AuthorsSection() {
 					// onClick={() => handleClick("forward", "bestsell-slider")}
 					id="next"
 					src={forward}
-					className="swiper-button-prev-custom-3"
+					className={`swiper-button-prev-custom-3 ${isBeginning ? "disabled" : ""}`}
 					alt="next"
 				/>
 				<SkeletonTheme
@@ -107,6 +117,15 @@ function AuthorsSection() {
 							forceToAxis: true,
 						}}
 						touchRatio={1}
+						onSwiper={(swiper) => {
+							swiperRef.current = swiper; // Store Swiper instance
+							setIsBeginning(swiper.isBeginning); // Set initial state
+							setIsEnd(swiper.isEnd);
+						}}
+						onSlideChange={(swiper) => {
+							setIsBeginning(swiper.isBeginning); // Update state on slide change
+							setIsEnd(swiper.isEnd);
+						}}
 						navigation={{
 							nextEl: ".swiper-button-next-custom-3",
 							prevEl: ".swiper-button-prev-custom-3",
@@ -164,7 +183,7 @@ function AuthorsSection() {
 				<img
 					// onClick={() => handleClick("back", "bestsell-slider")}
 					id="previous"
-					className="swiper-button-next-custom-3"
+					className={`swiper-button-next-custom-3 ${isEnd ? "disabled" : ""}`}
 					src={back}
 					alt="previous"
 				/>
