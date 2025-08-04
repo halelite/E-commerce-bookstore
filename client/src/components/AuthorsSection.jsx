@@ -75,7 +75,7 @@ function AuthorsSection() {
 		if (!isLoading && swiperRef.current) {
 			swiperRef.current.update(); // Recalculate slides
 			setIsBeginning(swiperRef.current.isBeginning);
-			setIsEnd(swiperRef.current.isEnd || books.length <= slidesPerView);
+			setIsEnd(swiperRef.current.isEnd || authors.length <= slidesPerView);
 		}
 	}, [isLoading, authors, slidesPerView]);
 
