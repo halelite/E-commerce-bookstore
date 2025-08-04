@@ -15,7 +15,7 @@ import { Bounce, ToastContainer } from "react-toastify";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import Books from "./pages/books";
+import Books from "./pages/Books.jsx";
 import ProductInfo from "./pages/ProductInfo";
 
 function App() {

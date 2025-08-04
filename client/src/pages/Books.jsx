@@ -23,8 +23,8 @@ function Books() {
 		setIsLoading(true);
 		try {
 			const url = new URL(`${import.meta.env.VITE_API_URL}/api/books`);
-			url.searchParams.set("page", page);
-			url.searchParams.set("limit", limit);
+			url.searchParams.set("page", page.toString());
+			url.searchParams.set("limit", limit.toString());
 			const categories = searchParams.getAll("category");
 			const authors = searchParams.getAll("author");
 			categories.forEach((cat) => {
@@ -55,7 +55,9 @@ function Books() {
 
 	useEffect(() => {
 		const page = parseInt(searchParams.get("page")) || 1;
-		fetchBooks(page);
+		(async () => {
+			await fetchBooks(page);
+		})();
 	}, [searchParams]);
 
 	const handleAuthorChange = (author) => {
@@ -91,12 +93,12 @@ function Books() {
 		setSearchParams(newSearchParams);
 	};
 
-	const handlePageChange = (newPage) => {
+	const handlePageChange = async (newPage) => {
 		setPagination({ ...pagination, page: newPage });
 		const newSearchParams = new URLSearchParams(searchParams);
 		newSearchParams.set("page", newPage);
 		setSearchParams(newSearchParams);
-		fetchBooks(newPage);
+		await fetchBooks(newPage);
 	};
 
 	function handleAddtoCart(bookData) {
