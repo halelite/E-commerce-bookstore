@@ -96,7 +96,7 @@ function Nav() {
 					)}
 				</div>
 			</div>
-			<PagesSection active={menuActive} />
+			<PagesSection active={menuActive} closeMenu={() => setMenuActive(false)} />
 		</>
 	);
 }

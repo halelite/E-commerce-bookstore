@@ -1,10 +1,11 @@
 import arrowDown from "../assets/icons/arrow_down_24dp_FILL0_wght300_GRAD0_opsz24.svg";
-import { useRef, useState, useLayoutEffect } from "react";
+import {useRef, useState, useLayoutEffect, useEffect} from "react";
 import arrowUp from "../assets/icons/arrow_up_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import { Link, NavLink } from "react-router";
 
-function PagesSection({ active }) {
+function PagesSection({ active, closeMenu }) {
 	const ref = useRef();
+	const menuRef = useRef(null)
 	const [show, setShow] = useState(false);
 	const [options, setOptions] = useState([
 		"همه",
@@ -29,6 +30,21 @@ function PagesSection({ active }) {
 		}
 	}
 
+	useEffect(() => {
+		function handleClickOutside(event) {
+			if (menuRef.current && !menuRef.current.contains(event.target)) {
+				closeMenu();        // close full menu
+				setShow(false);     // close dropdown
+			}
+		}
+		if (active) {
+			document.addEventListener("mousedown", handleClickOutside);
+		}
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [active, closeMenu]);
+
 	useLayoutEffect(() => {
 		if (show) {
 			ref.current.style.display = "block";
@@ -52,7 +68,7 @@ function PagesSection({ active }) {
 	});
 
 	return (
-		<div className={`${active ? "active" : ""} pages`}>
+		<div ref={menuRef} className={`${active ? "active" : ""} pages`}>
 			<ul>
 				<li className="wrap-li">
 					<NavLink to="/">خانه</NavLink>
