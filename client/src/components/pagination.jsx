@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
 const getPaginationRange = (totalPages, currentPage, delta = 1) => {
-	console.log('totalPages', totalPages);
 	const range = [];
 	const dots = "...";
 
@@ -55,7 +54,9 @@ function Pagination({ page, totalPages, onPageChange }) {
 					<span key={id}>...</span>
 				) : (
 					<button
-						className={parseInt(page) === parseInt(item) ? "active-pagination" : ""}
+						className={
+							parseInt(page) === parseInt(item) ? "active-pagination" : ""
+						}
 						key={item}
 						onClick={() => onPageChange(item)}
 					>

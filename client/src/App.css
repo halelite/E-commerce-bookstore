@@ -598,8 +598,13 @@ body {
 
 .bestsellers,
 .new,
-.authors {
+.authors,
+.author-books {
 	margin-bottom: 50px;
+}
+
+.author-books {
+	margin-top: 45px;
 }
 
 .slider-item {

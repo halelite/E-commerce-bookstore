@@ -6,10 +6,9 @@ import AuthorBooksSection from "../components/AuthorBooksSection.jsx";
 function AuthorInfo() {
 	const { slug } = useParams();
 	const [author, setAuthor] = useState([]);
-	const { isLoading, setIsLoading } = useState(false);
+	const { isLoading, setIsLoading } = useState(true);
 
 	useEffect(() => {
-		// setIsLoading(true);
 		fetch(`${import.meta.env.VITE_API_URL}/api/authors/${slug}`)
 			.then((res) => {
 				if (res.ok) {
@@ -20,15 +19,11 @@ function AuthorInfo() {
 			})
 			.then((data) => {
 				setAuthor(data);
-				// setIsLoading(false);
 			})
 			.catch((err) => {
 				console.log(err);
-				// setIsLoading(false);
-			});
-		// .finally(() => {
-		// 	setIsLoading(false);
-		// });
+			})
+			.finally(() => setIsLoading(false));
 	}, []);
 
 	return (
