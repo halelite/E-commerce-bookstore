@@ -97,7 +97,7 @@ function BestsellerLists() {
 		<div className="bestsellers">
 			<div className="info-bar">
 				<p>پرفروش ترین‌ها</p>
-				<p onClick={() => navigate("/books")}>
+				<p onClick={() => navigate("/books/best-sellers")}>
 					مشاهده همه
 					<img src={go} alt="go" />
 				</p>

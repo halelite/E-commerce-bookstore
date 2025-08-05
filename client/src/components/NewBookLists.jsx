@@ -106,7 +106,7 @@ function NewBookLists() {
     <div className="new">
       <div className="info-bar">
         <p>جدید ترین‌ها</p>
-        <p onClick={() => navigate("/books")}>
+        <p onClick={() => navigate("/books/new")}>
           مشاهده همه
           <img src={go} alt="go"/>
         </p>

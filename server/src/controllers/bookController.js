@@ -49,7 +49,7 @@ const getBooks = async (req, res, next) => {
 	}
 };
 
-// @desc   Get best seller books
+// @desc   Get bestseller books
 // @route  Get /api/books/best-sellers
 const getBestSellerBooks = async (req, res, next) => {
 	try {
@@ -57,6 +57,48 @@ const getBestSellerBooks = async (req, res, next) => {
 		const skip = (page - 1) * limit;
 
 		let query = { isBestSeller: true };
+
+		if (category) {
+			const categories = Array.isArray(category) ? category : [category];
+			query.category = { $in: categories };
+		}
+
+		if (author) {
+			const authors = Array.isArray(author) ? author : [author];
+			query.author = { $in: authors };
+		}
+
+		const [books, total, allCategories] = await Promise.all([
+			Book.find(query).skip(skip).limit(limit),
+			Book.countDocuments(query),
+			Book.distinct("category"),
+		]);
+
+		res.status(200).json({
+			books,
+			pagination: {
+				page: +page,
+				limit: +limit,
+				total,
+				totalPages: Math.ceil(total / limit),
+			},
+			filters: {
+				categories: allCategories,
+			},
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+
+// @desc   Get new books
+// @route  Get /api/books/new
+const getNewBooks = async (req, res, next) => {
+	try {
+		const { page = 1, limit = 10, category, author } = req.query;
+		const skip = (page - 1) * limit;
+
+		let query = { isNewBook: true };
 
 		if (category) {
 			const categories = Array.isArray(category) ? category : [category];
@@ -145,4 +187,4 @@ const getSearchedBooks = async (req, res, next) => {
 	}
 };
 
-module.exports = { getBooks, getBook, getSearchedBooks, getBestSellerBooks };
+module.exports = { getBooks, getBook, getSearchedBooks, getBestSellerBooks, getNewBooks };

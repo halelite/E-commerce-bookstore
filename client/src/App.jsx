@@ -17,6 +17,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Books from "./pages/Books.jsx";
 import ProductInfo from "./pages/ProductInfo";
+import BestSellerBooks from "./pages/BestSellerBooks.jsx";
+import NewBooks from "./pages/NewBooks.jsx";
 
 function App() {
 	const { pathname } = useLocation();
@@ -35,6 +37,8 @@ function App() {
 				<Route path="/register" element={<Register />} />
 				<Route path="/authors" element={<Authors />} />
 				<Route path="/authors/:slug" element={<AuthorInfo />} />
+				<Route path="/books/best-sellers" element={<BestSellerBooks />} />
+				<Route path="/books/new" element={<NewBooks />} />
 				<Route path="/books/:slug" element={<ProductInfo />} />
 				<Route path="/categories/:slug" element={<Category />} />
 				<Route path="/cart" element={<Cart />} />
