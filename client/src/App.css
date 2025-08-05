@@ -1718,6 +1718,7 @@ form button {
 
 	.filters {
 		position: absolute;
+		display: none;
 	}
 
 	#author-img {
