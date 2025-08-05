@@ -65,6 +65,7 @@ body {
 
 .logo {
 	margin-right: 0px;
+	cursor: pointer;
 }
 
 .logo img {
@@ -1748,6 +1749,7 @@ form button {
 	.footer .logo {
 		text-align: center;
 		margin-right: 0;
+		cursor: none;
 	}
 
 	.footer-links {
