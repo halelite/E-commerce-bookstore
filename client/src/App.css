@@ -760,6 +760,7 @@ body {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+	position: relative;
 }
 
 .full-list .top-info {
@@ -857,6 +858,41 @@ body {
 .all-book-grid .slider-item {
 	width: 100%;
 	margin-left: 0;
+}
+
+.filter-books-wrapper {
+	display: flex;
+	gap: 1.2vw;
+	align-items: flex-start;
+}
+
+/* filters */
+.filters {
+	border: 1px solid #aaa;
+	border-radius: 8px;
+	width: 220px;
+}
+
+.filters h4 {
+	margin-bottom: 20px;
+	padding: 10px;
+}
+
+.filters .accordion {
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	padding: 10px;
+}
+
+.filters .accordion-content {
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+}
+
+.filters .accordion-content .checkbox-wrapper {
+	/*display: flex;*/
+	/*gap: 3px;*/
 }
 
 /* subscription section */
@@ -1438,6 +1474,12 @@ form button {
 	}
 }
 
+@media screen and (max-width: 900px) {
+	.all-book-grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
 /* tablet view */
 @media screen and (max-width: 767px) {
 	.menu-icon {
@@ -1545,12 +1587,12 @@ form button {
 	}
 
 	.wu-item .icon img {
-		width: 35x;
+		width: 35px;
 		height: 35px;
 	}
 
 	.wu-item:first-child img {
-		width: 45x;
+		width: 45px;
 		height: 45px;
 	}
 
@@ -1674,6 +1716,10 @@ form button {
 		margin-bottom: 8px;
 	} */
 
+	.filters {
+		position: absolute;
+	}
+
 	#author-img {
 		width: 100%;
 		/* height: 160px; */
@@ -1688,10 +1734,6 @@ form button {
 
 	.authors {
 		margin-bottom: 40px;
-	}
-
-	.all-book-grid {
-		grid-template-columns: repeat(3, 1fr);
 	}
 
 	.full-list .top-info {

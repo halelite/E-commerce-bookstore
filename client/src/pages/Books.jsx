@@ -5,6 +5,7 @@ import Pagination from "../components/pagination";
 import { useCart } from "../context/cart-context";
 import star from "../assets/icons/icon-star.svg";
 import addIcon from "../assets/icons/add_24dp_FILL0_wght300_GRAD0_opsz24.svg";
+import Filters from "../components/Filters.jsx";
 
 function Books() {
 	const navigate = useNavigate();
@@ -18,6 +19,7 @@ function Books() {
 		totalPages: 1,
 	});
 	const [categoriesFilter, setCategoriesFilter] = useState([]);
+	const [authorsFilter, setAuthorsFilter] = useState([]);
 	const { addToCart } = useCart();
 
 	const fetchBooks = async (page = 1, limit = 12) => {
@@ -40,6 +42,7 @@ function Books() {
 			const data = await res.json();
 			setBooks(data.books);
 			setCategoriesFilter(data.filters.categories);
+			setAuthorsFilter(data.filters.authors)
 			setPagination({
 				...pagination,
 				page: data.pagination.page,
@@ -54,8 +57,8 @@ function Books() {
 	};
 
 	useEffect(() => {
-		console.log("categoriesFilter >>>", categoriesFilter);
-	}, [categoriesFilter]);
+		console.log("authorsFilter >>>", authorsFilter);
+	}, [authorsFilter]);
 
 	useEffect(() => {
 		const page = parseInt(searchParams.get("page")) || 1;
@@ -120,48 +123,57 @@ function Books() {
 						<div className="pagination-wrapper">
 							{books.length > 0 ? (
 								<>
-									<div className="all-book-grid">
-										{books.map((book) => (
-											<div
-												key={book._id}
-												className="slider-item"
-												onClick={() => navigate(`/books/${book.slug}`)}
-											>
-												<div className="img-wrapper">
-													<img
-														className="book-img"
-														src={`${import.meta.env.VITE_API_URL}${book.image}`}
-														alt="book image"
-													/>
-												</div>
-												<div className="item-info">
-													<div className="title-rate">
-														<p>
-															{book.category.includes("زبان اصلی")
-																? book.en_title
-																: book.title}
-														</p>
-														<span id="rating">
-															<img src={star} alt="star" /> 5.0
-														</span>
+									<div className='filter-books-wrapper'>
+										<Filters
+											searchParams={searchParams}
+											categoriesFilter={categoriesFilter}
+											authorsFilter={authorsFilter}
+											handleCategoryChange={handleCategoryChange}
+											handleAuthorChange={handleAuthorChange}
+										/>
+										<div className="all-book-grid">
+											{books.map((book) => (
+												<div
+													key={book._id}
+													className="slider-item"
+													onClick={() => navigate(`/books/${book.slug}`)}
+												>
+													<div className="img-wrapper">
+														<img
+															className="book-img"
+															src={`${import.meta.env.VITE_API_URL}${book.image}`}
+															alt="book image"
+														/>
 													</div>
-													<div className="price-add">
-														<div className="price-info">
+													<div className="item-info">
+														<div className="title-rate">
+															<p>
+																{book.category.includes("زبان اصلی")
+																	? book.en_title
+																	: book.title}
+															</p>
+															<span id="rating">
+															<img src={star} alt="star"/> 5.0
+														</span>
+														</div>
+														<div className="price-add">
+															<div className="price-info">
 															<span id="price">
 																{book.price.toLocaleString()}
 																<span className="currency">تومان</span>
 															</span>
+															</div>
+															<button
+																onClick={() => handleAddtoCart(book)}
+																className="add-to-cart"
+															>
+																<img src={addIcon} alt="plus"/>
+															</button>
 														</div>
-														<button
-															onClick={() => handleAddtoCart(book)}
-															className="add-to-cart"
-														>
-															<img src={addIcon} alt="plus" />
-														</button>
 													</div>
 												</div>
-											</div>
-										))}
+											))}
+										</div>
 									</div>
 									<Pagination
 										page={pagination.page}
@@ -176,21 +188,6 @@ function Books() {
 					)}
 				</div>
 
-				{/* <div>
-					{categoriesFilter.length > 0 &&
-						categoriesFilter.map((cat) => (
-							<label key={cat}>
-								{cat}
-								<input
-									type="checkbox"
-									name={"category"}
-									value={cat}
-									checked={searchParams.getAll("category").includes(cat)}
-									onChange={() => handleCategoryChange(cat)}
-								/>
-							</label>
-						))}
-				</div> */}
 			</div>
 		</Layout>
 	);
