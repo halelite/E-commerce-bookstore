@@ -162,7 +162,7 @@ function Authors() {
 				</div>
 
 				<div className="lists">
-					{isLoading ? <p>Loading...</p> : bookContent}
+					{isLoading ? <p>در حال بارگذاری...</p> : bookContent}
 				</div>
 			</div>
 		</Layout>

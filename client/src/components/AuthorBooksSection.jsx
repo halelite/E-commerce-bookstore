@@ -57,7 +57,7 @@ const AuthorBooksSection = ({ author }) => {
 				direction="rtl"
 			>
 				{isLoading ? (
-					<div>Loading...</div>
+					<div>در حال بارگذاری...</div>
 				) : (
 					<div className="all-book-grid">
 						{books.map((book) => (

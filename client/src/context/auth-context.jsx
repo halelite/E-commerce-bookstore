@@ -77,10 +77,6 @@ export const AuthProvider = ({ children }) => {
 		toast.info("خروج از حساب کاربری با موفقیت انجام شد");
 	};
 
-	if (loading) {
-		return <div>Loading........</div>;
-	}
-
 	return (
 		<AuthContext.Provider
 			value={{ user, isAuthenticated, login, logout, loading }}

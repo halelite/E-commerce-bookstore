@@ -29,7 +29,7 @@ function AuthorInfo() {
 	return (
 		<Layout>
 			{isLoading ? (
-				<div>Loading...</div>
+				<div>در حال بارگذاری...</div>
 			) : (
 				<div className="author-info">
 					<div className="basic-info">
