@@ -263,6 +263,10 @@ body {
 	gap: 8px;
 }
 
+.account a {
+	display: flex;
+}
+
 .account .sign-in-up {
 	/* margin-left: 20px; */
 	border: 1px solid #2f4858;
@@ -274,6 +278,7 @@ body {
 
 .account .sign-in-up a {
 	width: 100%;
+
 }
 
 .account .sign-in-up:hover {
