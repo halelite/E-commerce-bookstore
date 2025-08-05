@@ -21,6 +21,7 @@ function Books() {
 	const [categoriesFilter, setCategoriesFilter] = useState([]);
 	const [authorsFilter, setAuthorsFilter] = useState([]);
 	const { addToCart } = useCart();
+	const [isFilterActive, setIsFilterActive] = useState(false);
 
 	const fetchBooks = async (page = 1, limit = 12) => {
 		setIsLoading(true);
@@ -42,7 +43,7 @@ function Books() {
 			const data = await res.json();
 			setBooks(data.books);
 			setCategoriesFilter(data.filters.categories);
-			setAuthorsFilter(data.filters.authors)
+			setAuthorsFilter(data.filters.authors);
 			setPagination({
 				...pagination,
 				page: data.pagination.page,
@@ -55,10 +56,6 @@ function Books() {
 			setIsLoading(false);
 		}
 	};
-
-	useEffect(() => {
-		console.log("authorsFilter >>>", authorsFilter);
-	}, [authorsFilter]);
 
 	useEffect(() => {
 		const page = parseInt(searchParams.get("page")) || 1;
@@ -115,7 +112,15 @@ function Books() {
 	return (
 		<Layout>
 			<div className="full-list">
-				<div className="books-top-title">کتاب‌های بوک‌لند</div>
+				<div className="top-title-filter">
+					<div className="books-top-title">کتاب‌های بوک‌لند</div>
+					<button
+						onClick={() => setIsFilterActive(!isFilterActive)}
+						className="filters-button"
+					>
+						فیلترها
+					</button>
+				</div>
 				<div className="lists">
 					{isLoading ? (
 						<div>Loading...</div>
@@ -123,8 +128,10 @@ function Books() {
 						<div className="pagination-wrapper">
 							{books.length > 0 ? (
 								<>
-									<div className='filter-books-wrapper'>
+									<div className="filter-books-wrapper">
 										<Filters
+											isFilterActive={isFilterActive}
+											setIsFilterActive={setIsFilterActive}
 											searchParams={searchParams}
 											categoriesFilter={categoriesFilter}
 											authorsFilter={authorsFilter}
@@ -141,7 +148,9 @@ function Books() {
 													<div className="img-wrapper">
 														<img
 															className="book-img"
-															src={`${import.meta.env.VITE_API_URL}${book.image}`}
+															src={`${import.meta.env.VITE_API_URL}${
+																book.image
+															}`}
 															alt="book image"
 														/>
 													</div>
@@ -153,21 +162,21 @@ function Books() {
 																	: book.title}
 															</p>
 															<span id="rating">
-															<img src={star} alt="star"/> 5.0
-														</span>
+																<img src={star} alt="star" /> 5.0
+															</span>
 														</div>
 														<div className="price-add">
 															<div className="price-info">
-															<span id="price">
-																{book.price.toLocaleString()}
-																<span className="currency">تومان</span>
-															</span>
+																<span id="price">
+																	{book.price.toLocaleString()}
+																	<span className="currency">تومان</span>
+																</span>
 															</div>
 															<button
 																onClick={() => handleAddtoCart(book)}
 																className="add-to-cart"
 															>
-																<img src={addIcon} alt="plus"/>
+																<img src={addIcon} alt="plus" />
 															</button>
 														</div>
 													</div>
@@ -187,7 +196,6 @@ function Books() {
 						</div>
 					)}
 				</div>
-
 			</div>
 		</Layout>
 	);

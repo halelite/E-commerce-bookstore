@@ -40,6 +40,7 @@ body {
 	min-height: 100vh;
 	position: relative;
 	font-family: vazir;
+	overflow-x: hidden;
 }
 
 #root {
@@ -278,7 +279,6 @@ body {
 
 .account .sign-in-up a {
 	width: 100%;
-
 }
 
 .account .sign-in-up:hover {
@@ -760,7 +760,7 @@ body {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	position: relative;
+	/* position: relative; */
 }
 
 .full-list .top-info {
@@ -873,6 +873,22 @@ body {
 	width: 220px;
 }
 
+.back-shadow {
+	display: none;
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.5);
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 100;
+}
+
+.filters .close-filters {
+	display: none;
+	position: absolute;
+}
+
 .filters h4 {
 	margin-bottom: 20px;
 	padding: 10px;
@@ -891,8 +907,12 @@ body {
 }
 
 .filters .accordion-content .checkbox-wrapper {
-	/*display: flex;*/
-	/*gap: 3px;*/
+	display: flex;
+	gap: 3px;
+}
+
+.filters-button {
+	display: none;
 }
 
 /* subscription section */
@@ -1716,9 +1736,55 @@ form button {
 		margin-bottom: 8px;
 	} */
 
+	.back-shadow.active-filters {
+		display: block;
+	}
+
 	.filters {
 		position: absolute;
-		display: none;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 1000;
+		border-radius: 0;
+		width: 60vw;
+		background: white;
+		transform: translateX(-60vw);
+		transition: all 1s ease;
+	}
+
+	.filters.active-filters {
+		transform: translateX(0);
+	}
+
+	.filters .close-filters {
+		display: block;
+		top: 10px;
+		right: 20px;
+	}
+
+	.filters h4 {
+		text-align: center;
+	}
+
+	.filters-button {
+		display: block;
+		border: 1px solid var(--orange);
+		background-color: white;
+		font-family: vazir;
+		border-radius: 6px;
+		padding: 7px 18px;
+	}
+
+	.filters-button:hover {
+		background-color: var(--orange);
+		color: white;
+	}
+
+	.top-title-filter {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 	}
 
 	#author-img {
