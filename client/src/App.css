@@ -453,6 +453,7 @@ body {
 	font-size: 1rem;
 	font-family: vazir;
 	color: white;
+	cursor: pointer;
 }
 
 /* .promotion img {
@@ -500,7 +501,7 @@ body {
 }
 
 .wu-item .icon img {
-	width: 50x;
+	width: 50px;
 	height: 50px;
 	position: absolute;
 	top: 50%;
@@ -509,7 +510,7 @@ body {
 }
 
 .wu-item:first-child img {
-	width: 60x;
+	width: 60px;
 	height: 60px;
 }
 
