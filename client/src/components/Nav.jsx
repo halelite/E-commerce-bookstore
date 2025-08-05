@@ -63,7 +63,7 @@ function Nav() {
 							<img id="close-menu" src={close} alt="close" />
 						)}
 					</div>
-					<div className="logo">
+					<div className="logo" onClick={() => navigate("/")}>
 						<img src={logo} alt="logo" />
 					</div>
 				</div>
