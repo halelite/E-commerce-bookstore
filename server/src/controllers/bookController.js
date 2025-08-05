@@ -30,6 +30,7 @@ const getBooks = async (req, res, next) => {
 
 		// Get all unique categories for filters UI
 		const categories = await Book.distinct("category");
+		const authors = await Book.distinct("author");
 
 		res.status(200).json({
 			books,
@@ -41,7 +42,7 @@ const getBooks = async (req, res, next) => {
 			},
 			filters: {
 				categories,
-				// authors,
+				authors,
 			},
 		});
 	} catch (error) {
@@ -68,10 +69,11 @@ const getBestSellerBooks = async (req, res, next) => {
 			query.author = { $in: authors };
 		}
 
-		const [books, total, allCategories] = await Promise.all([
+		const [books, total, allCategories, allAuthors] = await Promise.all([
 			Book.find(query).skip(skip).limit(limit),
 			Book.countDocuments(query),
 			Book.distinct("category"),
+			Book.distinct("author"),
 		]);
 
 		res.status(200).json({
@@ -84,6 +86,7 @@ const getBestSellerBooks = async (req, res, next) => {
 			},
 			filters: {
 				categories: allCategories,
+				authors: allAuthors
 			},
 		});
 	} catch (error) {
@@ -110,10 +113,11 @@ const getNewBooks = async (req, res, next) => {
 			query.author = { $in: authors };
 		}
 
-		const [books, total, allCategories] = await Promise.all([
+		const [books, total, allCategories, allAuthors] = await Promise.all([
 			Book.find(query).skip(skip).limit(limit),
 			Book.countDocuments(query),
 			Book.distinct("category"),
+			Book.distinct("author"),
 		]);
 
 		res.status(200).json({
@@ -126,6 +130,7 @@ const getNewBooks = async (req, res, next) => {
 			},
 			filters: {
 				categories: allCategories,
+				authors: allAuthors
 			},
 		});
 	} catch (error) {
