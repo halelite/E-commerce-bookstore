@@ -93,7 +93,7 @@ function Nav() {
 					</div>
 					{isAuthenticated && (
 						<div className="logout" onClick={handleLogout}>
-							logout
+							خروج
 						</div>
 					)}
 				</div>

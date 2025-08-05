@@ -317,6 +317,11 @@ body {
 
 .account .logout {
 	cursor: pointer;
+	color: darkred;
+}
+
+.account .logout:hover {
+	opacity: 0.7;
 }
 
 /* pages */
