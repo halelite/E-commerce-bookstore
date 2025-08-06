@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useAuth } from "../context/auth-context";
 import { useCart } from "../context/cart-context";
 import { toast } from "react-toastify";
 
 function Register() {
 	const { login } = useAuth();
+	const location = useLocation();
 	const { syncCart } = useCart();
 	const [formData, setFormData] = useState({
 		name: "",
@@ -15,6 +16,12 @@ function Register() {
 	const [errors, setErrors] = useState({});
 	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
+
+	// Get the page the user came from
+	const from =
+		location.state?.from ||
+		new URLSearchParams(location.search).get("from") ||
+		"/";
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -75,7 +82,7 @@ function Register() {
 				});
 				await syncCart(token);
 				toast.success("ثبت نام با موفقیت انجام شد");
-				navigate("/");
+				navigate(from, { replace: true });
 			} catch (err) {
 				console.log(err.message);
 				setErrors({ general: err.message });
