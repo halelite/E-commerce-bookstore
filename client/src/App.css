@@ -413,6 +413,10 @@ body {
 	color: #2f4858;
 }
 
+.back-shadow.active-menu {
+	display: block;
+}
+
 /* hero section */
 .hero-section {
 	/* width: 100%; */
@@ -760,6 +764,7 @@ body {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+	/*overflow-x: hidden;*/
 	/* position: relative; */
 }
 
@@ -875,7 +880,7 @@ body {
 
 .back-shadow {
 	display: none;
-	position: absolute;
+	position: fixed;
 	background-color: rgba(0, 0, 0, 0.5);
 	top: 0;
 	bottom: 0;
@@ -900,10 +905,31 @@ body {
 	padding: 10px;
 }
 
+.filters .accordion-title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	cursor: pointer;
+}
+
+.filters .accordion-title div:nth-child(2) {
+	display: flex;
+	justify-content: center;
+}
+
+.filters .accordion-title .minus {
+	font-size: 24px;
+}
+
 .filters .accordion-content {
+	margin-top: 10px;
 	display: flex;
 	flex-direction: column;
 	padding: 10px;
+	max-height: 200px;
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: var(--orange) #fdfcfc;
 }
 
 .filters .accordion-content .checkbox-wrapper {
@@ -1622,7 +1648,7 @@ form button {
 
 	.pages {
 		width: 190px;
-		position: absolute;
+		position: fixed;
 		background-color: #dbd9d9;
 		z-index: 1004;
 		top: 0;
@@ -1630,7 +1656,6 @@ form button {
 		right: 0;
 		transform: translateX(190px);
 		transition: all 1s ease;
-		z-index: 900;
 	}
 
 	.active {
@@ -1741,7 +1766,7 @@ form button {
 	}
 
 	.filters {
-		position: absolute;
+		position: fixed;
 		top: 0;
 		bottom: 0;
 		left: 0;
@@ -1750,7 +1775,9 @@ form button {
 		width: 60vw;
 		background: white;
 		transform: translateX(-60vw);
-		transition: all 1s ease;
+		transition: all 0.9s ease;
+		overflow-y: auto;
+		border: none;
 	}
 
 	.filters.active-filters {

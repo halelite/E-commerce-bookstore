@@ -31,6 +31,13 @@ function PagesSection({ active, closeMenu, menuToggleButton }) {
 	}
 
 	useEffect(() => {
+		// Lock/unlock body scrolling when menu is active
+		if (active) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "";
+		}
+
 		function handleClickOutside(event) {
 			if (menuRef.current && !menuToggleButton.current.contains(event.target) && !menuRef.current.contains(event.target)) {
 				closeMenu();        // close full menu
@@ -72,41 +79,46 @@ function PagesSection({ active, closeMenu, menuToggleButton }) {
 	});
 
 	return (
-		<div ref={menuRef} className={`${active ? "active" : ""} pages`}>
-			<ul>
-				<li className="wrap-li">
-					<NavLink to="/">خانه</NavLink>
-				</li>
-				<li
-					className="wrap-li"
-					onMouseLeave={handleUnhover}
-					onMouseOver={handleHover}
-					onClick={() => setShow((curr) => !curr)}
-					id="category"
-				>
-					<div className="category-menu-item">
-						دسته بندی
-						{!show ? (
-							<img src={arrowDown} alt="down" />
-						) : (
-							<img src={arrowUp} alt="up" />
-						)}
-					</div>
-					<ul ref={ref} className="cat-list">
-						{categoryLinks}
-					</ul>
-				</li>
-				<li className="wrap-li">
-					<NavLink to="/authors">نویسنده‌ها</NavLink>
-				</li>
-				<li className="wrap-li">
-					<NavLink to="/about">درباره ما</NavLink>
-				</li>
-				<li className="wrap-li">
-					<NavLink to="/contact">تماس با ما</NavLink>
-				</li>
-			</ul>
-		</div>
+		<>
+			<div
+				className={`back-shadow ${active ? "active-menu" : ""}`}
+			/>
+			<div ref={menuRef} className={`${active ? "active" : ""} pages`}>
+				<ul>
+					<li className="wrap-li">
+						<NavLink to="/">خانه</NavLink>
+					</li>
+					<li
+						className="wrap-li"
+						onMouseLeave={handleUnhover}
+						onMouseOver={handleHover}
+						onClick={() => setShow((curr) => !curr)}
+						id="category"
+					>
+						<div className="category-menu-item">
+							دسته بندی
+							{!show ? (
+								<img src={arrowDown} alt="down"/>
+							) : (
+								<img src={arrowUp} alt="up"/>
+							)}
+						</div>
+						<ul ref={ref} className="cat-list">
+							{categoryLinks}
+						</ul>
+					</li>
+					<li className="wrap-li">
+						<NavLink to="/authors">نویسنده‌ها</NavLink>
+					</li>
+					<li className="wrap-li">
+						<NavLink to="/about">درباره ما</NavLink>
+					</li>
+					<li className="wrap-li">
+						<NavLink to="/contact">تماس با ما</NavLink>
+					</li>
+				</ul>
+			</div>
+		</>
 	);
 }
 

@@ -15,6 +15,13 @@ const Filters = ({
 	const filtersRef = useRef(null);
 
 	useEffect(() => {
+		// Lock/unlock body scrolling when filters are active
+		if (isFilterActive) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "";
+		}
+
 		function handleClickOutside(event) {
 			if (filtersRef.current && !filtersRef.current.contains(event.target)) {
 				setIsFilterActive(false);
@@ -49,13 +56,14 @@ const Filters = ({
 						className="accordion-title"
 						onClick={() => setIsCategoryOpen(!isCategoryOpen)}
 					>
-						دسته‌بندی‌
+						<div>دسته‌بندی‌</div>
+						<div>{isCategoryOpen ? <span className='minus'>-</span> : <span>+</span>}</div>
 					</div>
 					{isCategoryOpen && (
 						<div className="accordion-content">
 							{categoriesFilter.length > 0 &&
 								categoriesFilter.map((cat) => (
-									<div className="checkbox-wrapper">
+									<div key={cat} className="checkbox-wrapper">
 										<input
 											type="checkbox"
 											name={"category"}
@@ -63,7 +71,7 @@ const Filters = ({
 											checked={searchParams.getAll("category").includes(cat)}
 											onChange={() => handleCategoryChange(cat)}
 										/>
-										<label key={cat}>{cat}</label>
+										<label>{cat}</label>
 									</div>
 								))}
 						</div>
@@ -75,13 +83,14 @@ const Filters = ({
 						className="accordion-title"
 						onClick={() => setIsAuthorOpen(!isAuthorOpen)}
 					>
-						نویسنده
+						<div>نویسنده</div>
+						<div>{isAuthorOpen ? <span className='minus'>-</span> : <span>+</span>}</div>
 					</div>
 					{isAuthorOpen && (
 						<div className="accordion-content">
 							{authorsFilter.length > 0 &&
 								authorsFilter.map((author) => (
-									<div className="checkbox-wrapper">
+									<div key={author} className="checkbox-wrapper">
 										<input
 											type="checkbox"
 											name={"author"}
@@ -89,7 +98,7 @@ const Filters = ({
 											checked={searchParams.getAll("author").includes(author)}
 											onChange={() => handleAuthorChange(author)}
 										/>
-										<label key={author}>{author}</label>
+										<label>{author}</label>
 									</div>
 								))}
 						</div>
