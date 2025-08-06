@@ -64,6 +64,7 @@ function Login() {
 			}
 		} else {
 			setErrors(validationErrors);
+			setLoading(false);
 		}
 	};
 

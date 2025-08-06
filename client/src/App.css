@@ -984,6 +984,10 @@ body {
 	border-radius: 5px;
 }
 
+#send-email.sub-error {
+	border: 1px solid red;
+}
+
 #send-email #email {
 	flex-grow: 1;
 	padding: 10px;
@@ -1000,7 +1004,7 @@ body {
 	width: 88px;
 	font-family: vazir;
 	border: none;
-	border-radius: 2px 0 0 2px;
+	border-radius: 4px 0 0 4px;
 	background-color: var(--orange);
 	cursor: pointer;
 	color: white;
@@ -1145,7 +1149,7 @@ body {
 .register-container {
 	background-color: #eee;
 	width: 510px;
-	height: 560px;
+	min-height: 560px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
