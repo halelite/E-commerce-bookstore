@@ -4,13 +4,14 @@ import plus from "../assets/icons/add_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import minus from "../assets/icons/remove_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import { useCart } from "../context/cart-context";
 import { useAuth } from "../context/auth-context";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import Skeleton from "react-loading-skeleton";
 
 function Cart() {
 	const { cart, editCartItem, deleteCartItem, syncCart } = useCart();
 	const { isAuthenticated, loading, user } = useAuth();
 	const navigate = useNavigate();
+	const location = useLocation();
 	const fullPriceRef = useRef();
 
 	console.log("cart >>>", cart);
@@ -62,9 +63,12 @@ function Cart() {
 
 	const handleCheckout = () => {
 		if (isAuthenticated) {
-			console.log("navigate to checkout");
+			toast.success("پرداخت با موفقیت انجام شد");
 		} else {
-			navigate("/login");
+			navigate("/login", {
+				state: { from: location }, // pass current location as state
+				replace: true,
+			});
 		}
 	};
 

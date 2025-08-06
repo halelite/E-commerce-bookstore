@@ -217,7 +217,7 @@ function BestsellerLists() {
 													</span>
 												</div>
 												<button
-													onClick={() => {
+													onClick={(e) => {
 														e.stopPropagation();
 														handleAddtoCart(book);
 													}}

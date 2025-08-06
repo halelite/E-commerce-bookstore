@@ -91,7 +91,7 @@ function Register() {
 	return (
 		<div className="register-container">
 			<p id="title">ثبت نام در سایت</p>
-			{errors.general && <span>{errors.span}</span>}
+			{errors.general && <span>{errors.general}</span>}
 			<form action="" onSubmit={handleSubmit}>
 				<div className="field-wrap">
 					<label htmlFor="name">نام کاربری</label>
