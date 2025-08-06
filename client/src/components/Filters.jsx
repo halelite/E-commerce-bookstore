@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import {memo, useEffect, useRef, useState} from "react";
 import close from "../assets/icons/close_24dp_FILL0_wght400_GRAD0_opsz24.svg";
 
 const Filters = ({
@@ -109,4 +109,4 @@ const Filters = ({
 	);
 };
 
-export default Filters;
+export default memo(Filters);

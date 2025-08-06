@@ -1,13 +1,11 @@
-import star from "../assets/icons/icon-star.svg";
-import addIcon from "../assets/icons/add_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import Pagination from "../components/pagination.jsx";
 import Layout from "../components/Layout.jsx";
-import {useNavigate, useSearchParams} from "react-router";
-import {useEffect, useState} from "react";
+import {useSearchParams} from "react-router";
+import {useEffect, useMemo, useState} from "react";
 import {useCart} from "../context/cart-context.jsx";
+import FilteredBooksLists from "../components/FilteredBooksLists.jsx";
 
 const BestSellerBooks = () => {
-  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +16,8 @@ const BestSellerBooks = () => {
     totalPages: 1,
   });
   const [categoriesFilter, setCategoriesFilter] = useState([]);
-  const { addToCart } = useCart();
+  const [authorsFilter, setAuthorsFilter] = useState([]);
+  const [isFilterActive, setIsFilterActive] = useState(false);
 
   const fetchBooks = async (page = 1, limit = 12) => {
     setIsLoading(true);
@@ -40,6 +39,7 @@ const BestSellerBooks = () => {
       const data = await res.json();
       setBooks(data.books);
       setCategoriesFilter(data.filters.categories);
+      setAuthorsFilter(data.filters.authors);
       setPagination({
         ...pagination,
         page: data.pagination.page,
@@ -101,9 +101,8 @@ const BestSellerBooks = () => {
     await fetchBooks(newPage);
   };
 
-  function handleAddToCart(bookData) {
-    addToCart(bookData);
-  }
+  const memoizedCategoriesFilter = useMemo(() => categoriesFilter, [categoriesFilter]);
+  const memoizedAuthorsFilter = useMemo(() => authorsFilter, [authorsFilter]);
 
   return (
     <Layout>
@@ -114,60 +113,23 @@ const BestSellerBooks = () => {
             <div>در حال بارگذاری...</div>
           ) : (
             <div className="pagination-wrapper">
-              {books.length > 0 ? (
-                <>
-                  <div className="all-book-grid">
-                    {books.map((book) => (
-                      <div
-                        key={book._id}
-                        className="slider-item"
-                        onClick={() => navigate(`/books/${book.slug}`)}
-                      >
-                        <div className="img-wrapper">
-                          <img
-                            className="book-img"
-                            src={`${import.meta.env.VITE_API_URL}${book.image}`}
-                            alt="book image"
-                          />
-                        </div>
-                        <div className="item-info">
-                          <div className="title-rate">
-                            <p>
-                              {book.category.includes("زبان اصلی")
-                                ? book.en_title
-                                : book.title}
-                            </p>
-                            <span id="rating">
-															<img src={star} alt="star" /> 5.0
-														</span>
-                          </div>
-                          <div className="price-add">
-                            <div className="price-info">
-															<span id="price">
-																{book.price.toLocaleString()}
-                                <span className="currency">تومان</span>
-															</span>
-                            </div>
-                            <button
-                              onClick={() => handleAddToCart(book)}
-                              className="add-to-cart"
-                            >
-                              <img src={addIcon} alt="plus" />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <Pagination
-                    page={pagination.page}
-                    totalPages={pagination.totalPages}
-                    onPageChange={handlePageChange}
-                  />
-                </>
-              ) : (
-                <p>کتابی یافت نشد.</p>
-              )}
+              <>
+                <FilteredBooksLists
+                  books={books}
+                  isFilterActive={isFilterActive}
+                  setIsFilterActive={setIsFilterActive}
+                  searchParams={searchParams}
+                  categoriesFilter={memoizedCategoriesFilter}
+                  authorsFilter={memoizedAuthorsFilter}
+                  handleCategoryChange={handleCategoryChange}
+                  handleAuthorChange={handleAuthorChange}
+                />
+                <Pagination
+                  page={pagination.page}
+                  totalPages={pagination.totalPages}
+                  onPageChange={handlePageChange}
+                />
+              </>
             </div>
           )}
         </div>

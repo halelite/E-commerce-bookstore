@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import Layout from "../components/Layout";
 import Pagination from "../components/pagination";
@@ -6,9 +6,9 @@ import { useCart } from "../context/cart-context";
 import star from "../assets/icons/icon-star.svg";
 import addIcon from "../assets/icons/add_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import Filters from "../components/Filters.jsx";
+import FilteredBooksLists from "../components/FilteredBooksLists.jsx";
 
 function Books() {
-	const navigate = useNavigate();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [books, setBooks] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +20,6 @@ function Books() {
 	});
 	const [categoriesFilter, setCategoriesFilter] = useState([]);
 	const [authorsFilter, setAuthorsFilter] = useState([]);
-	const { addToCart } = useCart();
 	const [isFilterActive, setIsFilterActive] = useState(false);
 
 	const fetchBooks = async (page = 1, limit = 12) => {
@@ -64,7 +63,7 @@ function Books() {
 		})();
 	}, [searchParams]);
 
-	const handleAuthorChange = (author) => {
+	const handleAuthorChange = useCallback((author) => {
 		const authors = searchParams.getAll("author");
 		const newAuthors = authors.includes(author)
 			? authors.filter((c) => c !== author)
@@ -78,9 +77,9 @@ function Books() {
 		// selectedCategories.forEach((c) => newSearchParams.append("category", c));
 		newSearchParams.set("page", "1");
 		setSearchParams(newSearchParams);
-	};
+	}, [searchParams, setSearchParams]);
 
-	const handleCategoryChange = (category) => {
+	const handleCategoryChange = useCallback((category) => {
 		const categories = searchParams.getAll("category");
 		const newCategories = categories.includes(category)
 			? categories.filter((c) => c !== category)
@@ -95,19 +94,18 @@ function Books() {
 		// selectedAuthors.forEach((a) => newSearchParams.append("author", a));
 		newSearchParams.set("page", "1");
 		setSearchParams(newSearchParams);
-	};
+	}, [searchParams, setSearchParams]);
 
-	const handlePageChange = async (newPage) => {
+	const handlePageChange = useCallback(async (newPage) => {
 		setPagination({ ...pagination, page: newPage });
 		const newSearchParams = new URLSearchParams(searchParams);
 		newSearchParams.set("page", newPage);
 		setSearchParams(newSearchParams);
 		await fetchBooks(newPage);
-	};
+	}, [searchParams, setSearchParams, fetchBooks]);
 
-	function handleAddtoCart(bookData) {
-		addToCart(bookData);
-	}
+	const memoizedCategoriesFilter = useMemo(() => categoriesFilter, [categoriesFilter]);
+	const memoizedAuthorsFilter = useMemo(() => authorsFilter, [authorsFilter]);
 
 	return (
 		<Layout>
@@ -126,73 +124,23 @@ function Books() {
 						<div>Loading...</div>
 					) : (
 						<div className="pagination-wrapper">
-							{books.length > 0 ? (
-								<>
-									<div className="filter-books-wrapper">
-										<Filters
-											isFilterActive={isFilterActive}
-											setIsFilterActive={setIsFilterActive}
-											searchParams={searchParams}
-											categoriesFilter={categoriesFilter}
-											authorsFilter={authorsFilter}
-											handleCategoryChange={handleCategoryChange}
-											handleAuthorChange={handleAuthorChange}
-										/>
-										<div className="all-book-grid">
-											{books.map((book) => (
-												<div
-													key={book._id}
-													className="slider-item"
-													onClick={() => navigate(`/books/${book.slug}`)}
-												>
-													<div className="img-wrapper">
-														<img
-															className="book-img"
-															src={`${import.meta.env.VITE_API_URL}${
-																book.image
-															}`}
-															alt="book image"
-														/>
-													</div>
-													<div className="item-info">
-														<div className="title-rate">
-															<p>
-																{book.category.includes("زبان اصلی")
-																	? book.en_title
-																	: book.title}
-															</p>
-															<span id="rating">
-																<img src={star} alt="star" /> 5.0
-															</span>
-														</div>
-														<div className="price-add">
-															<div className="price-info">
-																<span id="price">
-																	{book.price.toLocaleString()}
-																	<span className="currency">تومان</span>
-																</span>
-															</div>
-															<button
-																onClick={() => handleAddtoCart(book)}
-																className="add-to-cart"
-															>
-																<img src={addIcon} alt="plus" />
-															</button>
-														</div>
-													</div>
-												</div>
-											))}
-										</div>
-									</div>
-									<Pagination
-										page={pagination.page}
-										totalPages={pagination.totalPages}
-										onPageChange={handlePageChange}
-									/>
-								</>
-							) : (
-								<p>کتابی یافت نشد.</p>
-							)}
+							<>
+								<FilteredBooksLists
+									books={books}
+									isFilterActive={isFilterActive}
+									setIsFilterActive={setIsFilterActive}
+									searchParams={searchParams}
+									categoriesFilter={memoizedCategoriesFilter}
+									authorsFilter={memoizedAuthorsFilter}
+									handleCategoryChange={handleCategoryChange}
+									handleAuthorChange={handleAuthorChange}
+								/>
+								<Pagination
+									page={pagination.page}
+									totalPages={pagination.totalPages}
+									onPageChange={handlePageChange}
+								/>
+							</>
 						</div>
 					)}
 				</div>
