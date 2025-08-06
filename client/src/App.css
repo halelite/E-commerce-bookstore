@@ -6,6 +6,7 @@
 
 :root {
 	/* --footerHeight: 240px; */
+	--navbar-height: 120px;
 	--orange: #dea01e;
 }
 
@@ -1582,13 +1583,16 @@ form button {
 		/* margin: 0 -10px; */
 		margin: 0 -8vw;
 		margin-bottom: 30px;
-		height: calc(100vh - 120px);
+		min-height: calc(100vh - var(--navbar-height));
+		height: auto;
 	}
 
 	.promotion {
+		min-height: calc(100vh - var(--navbar-height));
 		flex-direction: column;
 		flex-flow: column-reverse;
 		justify-content: space-evenly;
+		gap: 40px;
 	}
 
 	.promotion img {
