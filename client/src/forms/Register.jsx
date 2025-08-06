@@ -35,7 +35,7 @@ function Register() {
 	const validateForm = (data) => {
 		let errors = {};
 		if (!data.name.trim()) {
-			errors.email = "نام کاربری الزامی است.";
+			errors.name = "نام کاربری الزامی است.";
 		}
 
 		if (!data.email.trim()) {
@@ -92,6 +92,7 @@ function Register() {
 			}
 		} else {
 			setErrors(validationErrors);
+			setLoading(false);
 		}
 	};
 
@@ -107,7 +108,9 @@ function Register() {
 						name="name"
 						placeholder="نام کاربری"
 						onChange={handleInputChange}
+						className={`${errors.name ? "errorField" : ""}`}
 					/>
+					{errors.name && <span className="error">{errors.name}</span>}
 				</div>
 				<div className="field-wrap">
 					<label htmlFor="email">ایمیل</label>
@@ -116,7 +119,9 @@ function Register() {
 						name="email"
 						placeholder="ایمیل خود را وارد کنید."
 						onChange={handleInputChange}
+						className={`${errors.email ? "errorField" : ""}`}
 					/>
+					{errors.email && <span className="error">{errors.email}</span>}
 				</div>
 				<div className="field-wrap">
 					<label htmlFor="password">رمز عبور</label>
@@ -125,7 +130,9 @@ function Register() {
 						name="password"
 						placeholder="رمز عبور"
 						onChange={handleInputChange}
+						className={`${errors.password ? "errorField" : ""}`}
 					/>
+					{errors.password && <span className="error">{errors.password}</span>}
 				</div>
 				<button type="submit" disabled={loading}>
 					{loading ? "در حال ثبت‌نام..." : "ثبت‌نام"}
