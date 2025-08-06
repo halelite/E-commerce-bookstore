@@ -121,7 +121,7 @@ function Books() {
 				</div>
 				<div className="lists">
 					{isLoading ? (
-						<div>Loading...</div>
+						<div>در حال بارگذاری...</div>
 					) : (
 						<div className="pagination-wrapper">
 							<>
