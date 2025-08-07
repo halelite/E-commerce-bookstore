@@ -7,13 +7,13 @@ function Subscription() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (!email.trim()) {
+		if (email.trim()) {
+			setEmail("");
+			toast.success("با موفقیت به لیست خبرنامه اضافه شدید.");
+			setError("");
+		} else {
 			setError("ایمیل الزامی است.");
-			return;
 		}
-
-		setEmail("");
-		toast.success("با موفقیت به لیست خبرنامه اضافه شدید.");
 	};
 
 	return (
