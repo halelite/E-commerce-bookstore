@@ -98,6 +98,9 @@ function Register() {
 
 	return (
 		<div className="register-container">
+			<Link className="back-to-home" to="/">
+				بازگشت به صفحه اصلی
+			</Link>
 			<p id="title">ثبت نام در سایت</p>
 			{errors.general && <span>{errors.general}</span>}
 			<form action="" onSubmit={handleSubmit}>

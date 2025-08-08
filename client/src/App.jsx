@@ -19,6 +19,8 @@ import Books from "./pages/Books.jsx";
 import ProductInfo from "./pages/ProductInfo";
 import BestSellerBooks from "./pages/BestSellerBooks.jsx";
 import NewBooks from "./pages/NewBooks.jsx";
+import ForgotPassword from "./forms/ForgotPassword.jsx";
+import ResetPassword from "./forms/ResetPassword.jsx";
 
 function App() {
 	const { pathname } = useLocation();
@@ -34,6 +36,8 @@ function App() {
 				<Route path="/about" element={<About />} />
 				<Route path="/contact" element={<Contact />} />
 				<Route path="/login" element={<Login />} />
+				<Route path="/forgot-password" element={<ForgotPassword />} />
+				<Route path="/reset-password/:token" element={<ResetPassword />} />
 				<Route path="/register" element={<Register />} />
 				<Route path="/authors" element={<Authors />} />
 				<Route path="/authors/:slug" element={<AuthorInfo />} />

@@ -70,6 +70,9 @@ function Login() {
 
 	return (
 		<div className="login-container">
+			<Link className="back-to-home" to="/">
+				بازگشت به صفحه اصلی
+			</Link>
 			<p id="title">ورود به حساب کاربری</p>
 			{errors.general && <span>{errors.general}</span>}
 			<form action="" onSubmit={handleSubmit}>
@@ -96,7 +99,7 @@ function Login() {
 					/>
 					{errors.password && <span className="error">{errors.password}</span>}
 				</div>
-				<a className="forgot" href="#">
+				<a className="forgot" href="/forgot-password">
 					رمز عبور را فراموش کرده‌اید؟
 				</a>
 				<button type="submit" disabled={loading}>

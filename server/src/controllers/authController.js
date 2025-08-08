@@ -1,7 +1,21 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const nodemailer = require("nodemailer");
 
 const User = require("../models/User");
+
+// Create Ethereal transporter
+const createTransporter = async () => {
+	const testAccount = await nodemailer.createTestAccount();
+	return nodemailer.createTransport({
+		host: "smtp.ethereal.email",
+		port: 587,
+		auth: {
+			user: testAccount.user,
+			pass: testAccount.pass,
+		},
+	});
+};
 
 // @desc register new user
 // @route POST /api/auth/register
@@ -89,6 +103,90 @@ const loginUser = async (req, res, next) => {
 	}
 };
 
+// @desc   Request password reset
+// @route POST /api/auth/forgot-password
+const forgotPassword = async (req, res, next) => {
+	const { email } = req.body;
+	try {
+		const user = await User.findOne({ email });
+
+		if (!user) {
+			const error = new Error("کاربری با این ایمیل یافت نشد");
+			error.status = 404;
+			throw error;
+		}
+
+		// Generate reset token
+		const resetToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+			expiresIn: "1h",
+		});
+		user.resetCode = resetToken;
+		user.resetCodeExpires = Date.now() + 60 * 60 * 1000; // 1 hour
+		await user.save();
+
+		// Send reset email
+		const transporter = await createTransporter();
+		const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+		const mailOptions = {
+			from: '"Bookstore" <noreply@bookstore.com>',
+			to: email,
+			subject: "بازنشانی رمز عبور",
+			html: `
+        <p>برای بازنشانی رمز عبور خود، روی لینک زیر کلیک کنید:</p>
+        <a href="${resetUrl}">${resetUrl}</a>
+        <p>این لینک تا یک ساعت معتبر است.</p>
+      `,
+		};
+		const info = await transporter.sendMail(mailOptions);
+
+		res.json({
+			message: "لینک بازنشانی رمز عبور:",
+			resetUrl: `/reset-password/${resetToken}`,
+			previewUrl: nodemailer.getTestMessageUrl(info), // Ethereal preview URL
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+
+// @desc   Reset password
+// @route  POST /api/auth/reset-password/:token
+const resetPassword = async (req, res, next) => {
+	const { token } = req.params;
+	const { password } = req.body;
+
+	try {
+		let decoded;
+		try {
+			decoded = jwt.verify(token, process.env.JWT_SECRET);
+		} catch (err) {
+			const error = new Error("لینک بازنشانی نامعتبر یا منقضی شده است");
+			error.status = 400;
+			throw error;
+		}
+
+		const user = await User.findOne({
+			resetCode: token,
+			resetCodeExpires: { $gt: Date.now() },
+		});
+
+		if (!user) {
+			const error = new Error("لینک بازنشانی نامعتبر یا منقضی شده است");
+			error.status = 400;
+			throw error;
+		}
+
+		user.password = password;
+		user.resetCode = undefined;
+		user.resetCodeExpires = undefined;
+		await user.save();
+
+		res.json({ message: "رمز عبور با موفقیت تغییر یافت" });
+	} catch (error) {
+		next(error);
+	}
+};
+
 // Generate JWT
 const generateToken = (id) => {
 	return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -96,4 +194,4 @@ const generateToken = (id) => {
 	});
 };
 
-module.exports = { registerUser, loginUser };
+module.exports = { registerUser, loginUser, forgotPassword, resetPassword };
