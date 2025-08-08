@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import arrowDown from "../assets/icons/arrow_down_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import arrowUp from "../assets/icons/arrow_up_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 
@@ -15,6 +15,7 @@ export function CustomSelect({ setSelectedCategory }) {
 		"فانتزی",
 		"نمایشنامه",
 		"فلسفی",
+		"جنایی",
 	]);
 	const [show, setShow] = useState(false);
 	const [selectedValue, setSelectedValue] = useState(null);

@@ -1,11 +1,11 @@
 import arrowDown from "../assets/icons/arrow_down_24dp_FILL0_wght300_GRAD0_opsz24.svg";
-import {useRef, useState, useLayoutEffect, useEffect} from "react";
+import { useRef, useState, useLayoutEffect, useEffect } from "react";
 import arrowUp from "../assets/icons/arrow_up_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import { Link, NavLink } from "react-router";
 
 function PagesSection({ active, closeMenu, menuToggleButton }) {
 	const ref = useRef();
-	const menuRef = useRef(null)
+	const menuRef = useRef(null);
 	const [show, setShow] = useState(false);
 	const [options, setOptions] = useState([
 		"همه",
@@ -18,6 +18,7 @@ function PagesSection({ active, closeMenu, menuToggleButton }) {
 		"فانتزی",
 		"نمایشنامه",
 		"فلسفی",
+		"جنایی",
 	]);
 
 	function handleHover() {
@@ -39,9 +40,13 @@ function PagesSection({ active, closeMenu, menuToggleButton }) {
 		}
 
 		function handleClickOutside(event) {
-			if (menuRef.current && !menuToggleButton.current.contains(event.target) && !menuRef.current.contains(event.target)) {
-				closeMenu();        // close full menu
-				setShow(false);     // close dropdown
+			if (
+				menuRef.current &&
+				!menuToggleButton.current.contains(event.target) &&
+				!menuRef.current.contains(event.target)
+			) {
+				closeMenu(); // close full menu
+				setShow(false); // close dropdown
 			}
 		}
 		if (active) {
@@ -80,9 +85,7 @@ function PagesSection({ active, closeMenu, menuToggleButton }) {
 
 	return (
 		<>
-			<div
-				className={`back-shadow ${active ? "active-menu" : ""}`}
-			/>
+			<div className={`back-shadow ${active ? "active-menu" : ""}`} />
 			<div ref={menuRef} className={`${active ? "active" : ""} pages`}>
 				<ul>
 					<li className="wrap-li">
@@ -98,9 +101,9 @@ function PagesSection({ active, closeMenu, menuToggleButton }) {
 						<div className="category-menu-item">
 							دسته بندی
 							{!show ? (
-								<img src={arrowDown} alt="down"/>
+								<img src={arrowDown} alt="down" />
 							) : (
-								<img src={arrowUp} alt="up"/>
+								<img src={arrowUp} alt="up" />
 							)}
 						</div>
 						<ul ref={ref} className="cat-list">
