@@ -48,7 +48,7 @@ function NewBookLists() {
 	}, []);
 
 	useEffect(() => {
-		fetch(`${import.meta.env.VITE_API_URL}/api/books`)
+		fetch(`${import.meta.env.VITE_API_URL}/api/books/new`)
 			.then((res) => {
 				if (res.ok) {
 					return res.json();
