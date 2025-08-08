@@ -76,7 +76,7 @@ function ProductInfo() {
 				setBook(data);
 			})
 			.catch((err) => console.log(err));
-	}, []);
+	}, [slug]);
 
 	useLayoutEffect(() => {
 		if (cart.length > 0) {
