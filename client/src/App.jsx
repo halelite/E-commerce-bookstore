@@ -7,7 +7,6 @@ import Login from "./forms/Login";
 import Register from "./forms/Register";
 import Authors from "./pages/Authors";
 import AuthorInfo from "./pages/AuthorInfo";
-import Category from "./pages/Category";
 import Cart from "./pages/Cart";
 import { useEffect } from "react";
 import Profile from "./pages/Profile";
@@ -44,7 +43,6 @@ function App() {
 				<Route path="/books/best-sellers" element={<BestSellerBooks />} />
 				<Route path="/books/new" element={<NewBooks />} />
 				<Route path="/books/:slug" element={<ProductInfo />} />
-				<Route path="/categories/:slug" element={<Category />} />
 				<Route path="/cart" element={<Cart />} />
 				<Route path="/profile" element={<Profile />} />
 				<Route path="/books" element={<Books />} />
