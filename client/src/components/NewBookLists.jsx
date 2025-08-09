@@ -136,12 +136,11 @@ function NewBookLists() {
 							nextEl: ".swiper-button-next-custom-2",
 							prevEl: ".swiper-button-prev-custom-2",
 						}}
-						freeMode={true}
-						mousewheel={{
-							releaseOnEdges: true, // Allow page scroll when slider reaches start/end
-							forceToAxis: true,
-						}}
 						touchRatio={1}
+						onSetTranslate={(swiper) => {
+							setIsBeginning(swiper.isBeginning);
+							setIsEnd(swiper.isEnd);
+						}}
 						onSwiper={(swiper) => {
 							swiperRef.current = swiper;
 							setIsBeginning(swiper.isBeginning); // Set initial state
@@ -150,6 +149,11 @@ function NewBookLists() {
 						onSlideChange={(swiper) => {
 							setIsBeginning(swiper.isBeginning); // Update state on slide change
 							setIsEnd(swiper.isEnd);
+						}}
+						freeMode={true}
+						mousewheel={{
+							releaseOnEdges: true, // Allow page scroll when slider reaches start/end
+							forceToAxis: true,
 						}}
 						breakpoints={{
 							340: {
