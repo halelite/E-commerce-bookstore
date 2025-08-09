@@ -773,7 +773,7 @@ body {
 
 .authors .slider-item {
 	text-align: center;
-	height: auto;
+	/*height: auto;*/
 	/* width: 210px !important; */
 }
 
@@ -1880,13 +1880,15 @@ body {
 
 	#author-img {
 		width: 100%;
+		height: auto;
+		aspect-ratio: 1 / 1;
 		/* height: 160px; */
 		clip-path: circle(46%);
 	}
 
 	.authors .slider-item {
 		text-align: center;
-		height: auto;
+		/*height: auto;*/
 		/* width: 165px; */
 	}
 

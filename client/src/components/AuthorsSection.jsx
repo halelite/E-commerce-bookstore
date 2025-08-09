@@ -145,7 +145,7 @@ function AuthorsSection() {
 							// 320: {
 							// 	slidesPerView: 1,
 							// },
-							500: {
+							330: {
 								slidesPerView: 2,
 							},
 							768: {
