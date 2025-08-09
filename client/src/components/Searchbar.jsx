@@ -1,5 +1,6 @@
-import { useCallback, useRef, useState } from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import searchIcon from "../assets/icons/search_24dp_FILL0_wght400_GRAD0_opsz24.svg";
+import closeIcon from "../assets/icons/close_24dp_FILL0_wght400_GRAD0_opsz24.svg";
 import { CustomSelect } from "./Dropdown";
 import { debounce } from "../assets/debounce";
 import { useNavigate } from "react-router";
@@ -43,6 +44,14 @@ function Searchbar() {
 		),
 		[selectedCategory]
 	);
+
+	const handleClear = () => {
+		if(inputEl.current) {
+			inputEl.current.value = "";
+			setResult([]);
+			debounceSearch("")
+		}
+	}
 
 	return (
 		<div className="searchbar">
@@ -90,7 +99,9 @@ function Searchbar() {
 					)}
 				</div>
 				<div className="search-icon">
-					<img src={searchIcon} alt="search" />
+					{(!isLoading && inputEl.current?.value) ?
+						<img width={10} height={10} onClick={handleClear} src={closeIcon} alt="delete" className='clear-input'/> :
+						<img src={searchIcon} alt="search"/>}
 				</div>
 			</div>
 		</div>

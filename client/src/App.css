@@ -260,6 +260,11 @@ body {
 	/* cursor: pointer; */
 }
 
+.searchbar .search-icon .clear-input,
+.author-search .search-icon .clear-input {
+	cursor: pointer;
+}
+
 .searchbar .search-icon img,
 .author-search .search-icon img {
 	position: absolute;
