@@ -12,8 +12,6 @@ const AuthorBooksSection = ({ author }) => {
 	const [books, setBooks] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 
-	console.log("author >>>", author);
-
 	async function handleAddToCart(bookData) {
 		await addToCart(bookData);
 	}

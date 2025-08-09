@@ -192,7 +192,7 @@ function BestsellerLists() {
 									<SwiperSlide
 										key={book._id}
 										className="slider-item"
-										onClick={() => navigate(`books/${book.slug}`)}
+										onClick={() => navigate(`/books/${book.slug}`)}
 									>
 										<div className="img-wrapper">
 											<img
