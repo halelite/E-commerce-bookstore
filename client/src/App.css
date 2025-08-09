@@ -204,11 +204,17 @@ body {
 	z-index: 100;
 }
 
-/* .searchbar input:not(:focus) ~ .result-wrapper {
+ .searchbar input:not(:focus) ~ .result-wrapper {
 	opacity: 0;
 	visibility: hidden;
 	max-height: 0;
-} */
+}
+
+.search-wrapper:not(:focus) .result-wrapper {
+	max-height: 0;
+	opacity: 0;
+	visibility: hidden;
+}
 
 /* Show when input or result-wrapper is focused */
 .search-wrapper:focus-within .result-wrapper {

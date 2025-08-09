@@ -63,7 +63,9 @@ function Searchbar() {
 								{result.map((book) => (
 									<li
 										key={book._id}
-										onClick={() => navigate(`/books/${book.slug}`)}
+										onMouseDown={() => {
+											navigate(`/books/${book.slug}`);
+										}}
 									>
 										<div>
 											<div>{book.title}</div>
