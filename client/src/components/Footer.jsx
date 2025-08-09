@@ -19,9 +19,9 @@ function Footer() {
                 <div className="footer-links">
                     <div className="footer-item">
                         <h5>بوک‌لند</h5>
-                        <a href="#">درباره ما</a>
-                        <a href="#">تماس با ما</a>
-                        <a href="#">Support</a>
+                        <a href="/about">درباره ما</a>
+                        <a href="/contact">تماس با ما</a>
+                        <a href="#">پشتیبانی</a>
                     </div>
 
                     <div className="footer-item">
