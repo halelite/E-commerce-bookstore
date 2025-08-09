@@ -129,7 +129,6 @@ function NewBookLists() {
 					<Swiper
 						className="slider"
 						modules={[Navigation, FreeMode, Mousewheel]}
-						slidesOffsetAfter={5}
 						spaceBetween={10}
 						slidesPerView={1}
 						navigation={{
@@ -137,10 +136,6 @@ function NewBookLists() {
 							prevEl: ".swiper-button-prev-custom-2",
 						}}
 						touchRatio={1}
-						onSetTranslate={(swiper) => {
-							setIsBeginning(swiper.isBeginning);
-							setIsEnd(swiper.isEnd);
-						}}
 						onSwiper={(swiper) => {
 							swiperRef.current = swiper;
 							setIsBeginning(swiper.isBeginning); // Set initial state

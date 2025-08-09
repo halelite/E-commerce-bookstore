@@ -127,10 +127,6 @@ function AuthorsSection() {
 							forceToAxis: true,
 						}}
 						touchRatio={1}
-						onSetTranslate={(swiper) => {
-							setIsBeginning(swiper.isBeginning);
-							setIsEnd(swiper.isEnd);
-						}}
 						onSwiper={(swiper) => {
 							swiperRef.current = swiper; // Store Swiper instance
 							setIsBeginning(swiper.isBeginning); // Set initial state
