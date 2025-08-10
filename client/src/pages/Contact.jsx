@@ -14,7 +14,7 @@ function Contact() {
 
 				<div className="paragraph">
 					برای مشاهده کدهای پروژه یا ارتباط با توسعه‌دهنده، می‌توانید به{" "}
-					<a href="" target="__blank">
+					<a href="https://github.com/halelite" target="__blank">
 						صفحه گیت‌هاب من
 					</a>{" "}
 					مراجعه کنید.
