@@ -35,7 +35,7 @@ this e-commerce bookstore is a web application developed using React. It provide
 - CSS custom properties
 - Responsive web design
 - [React Router](https://reactrouter.com/) - Routing library
-- [React](https://reactjs.org/) - JS library
+- [React](https://reactjs.org/) - JS framework
 - [Express](https://expressjs.com/) - Node.js web application framework
 
 ## Author

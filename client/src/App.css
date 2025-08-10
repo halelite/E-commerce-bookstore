@@ -204,7 +204,7 @@ body {
 	z-index: 100;
 }
 
- .searchbar input:not(:focus) ~ .result-wrapper {
+.searchbar input:not(:focus) ~ .result-wrapper {
 	opacity: 0;
 	visibility: hidden;
 	max-height: 0;
@@ -973,6 +973,17 @@ body {
 
 .filters-button {
 	display: none;
+}
+
+/* about us */
+.about-us .paragraph,
+.contact-us .paragraph {
+	text-align: justify;
+	margin-bottom: 10px;
+}
+
+.contact-us .paragraph a {
+	text-decoration: none;
 }
 
 /* subscription section */
