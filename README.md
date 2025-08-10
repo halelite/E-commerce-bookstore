@@ -1,6 +1,8 @@
 # E-commerce bookstore
 
-Welcome to the E-commerce bookstore project! the frontend of this project is built using React.
+Welcome to the E-commerce Bookstore project!  
+This is a **full-stack** web application built with React (frontend), Express (backend), and MongoDB (database).  
+It allows users to browse books, view details, filter results, search, manage a shopping cart, and perform authentication.
 
 ## table of contents
 
@@ -16,7 +18,17 @@ Welcome to the E-commerce bookstore project! the frontend of this project is bui
 
 ### The project
 
-this e-commerce bookstore is a web application developed using React. It provides users with the ability to add, edit or delete books from their shopping cart and see the information of their desired books.
+This e-commerce bookstore is a **full-stack** application with the following features:
+
+- **Frontend (React)** for a smooth and interactive UI.
+- **Backend (Express)** with RESTful APIs for handling authentication, cart management, book data, and orders.
+- **Database (MongoDB)** to store users, books, authors, and cart data.
+- User authentication (register, login, logout, forgot password).
+- Book search with instant navigation to details.
+- **Filtering** books by category and author.
+- Cart functionality (add, edit, remove items) for both guests and logged-in users.
+- Secure API endpoints with authentication middleware.
+- Responsive web design
 
 ### Screenshot
 
@@ -37,6 +49,8 @@ this e-commerce bookstore is a web application developed using React. It provide
 - [React Router](https://reactrouter.com/) - Routing library
 - [React](https://reactjs.org/) - JS framework
 - [Express](https://expressjs.com/) - Node.js web application framework
+- [MongoDB](https://www.mongodb.com/) - NoSQL database
+- [Mongoose](https://mongoosejs.com/) - MongoDB object modeling
 
 ## Author
 
