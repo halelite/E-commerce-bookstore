@@ -759,10 +759,6 @@ body {
 	cursor: pointer;
 }
 
-.add-to-cart {
-	z-index: 99;
-}
-
 .slider-item .item-info .add-to-cart img {
 	width: 30px;
 	height: 30px;

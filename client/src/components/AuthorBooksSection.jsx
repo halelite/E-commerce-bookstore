@@ -96,7 +96,10 @@ const AuthorBooksSection = ({ author }) => {
 													</span>
 												</div>
 												<button
-													onClick={() => handleAddToCart(book)}
+													onClick={(e) => {
+														e.stopPropagation();
+														handleAddToCart(book);
+													}}
 													className="add-to-cart"
 												>
 													<img src={addIcon} alt="plus" />

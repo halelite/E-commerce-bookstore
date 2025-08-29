@@ -94,7 +94,13 @@ function NewBookLists() {
 					<span id="rating">
 						<img src={star} alt="star" /> 5.0
 					</span>
-					<button onClick={() => handleAddtoCart(book)} className="add-to-cart">
+					<button
+						onClick={(e) => {
+							e.stopPropagation();
+							handleAddtoCart(book);
+						}}
+						className="add-to-cart"
+					>
 						<img src={addIcon} alt="plus" />
 					</button>
 				</div>
