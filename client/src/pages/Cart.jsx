@@ -6,6 +6,7 @@ import { useCart } from "../context/cart-context";
 import { useAuth } from "../context/auth-context";
 import { useLocation, useNavigate } from "react-router";
 import Skeleton from "react-loading-skeleton";
+import { toast } from "react-toastify";
 
 function Cart() {
 	const { cart, editCartItem, deleteCartItem, syncCart } = useCart();
