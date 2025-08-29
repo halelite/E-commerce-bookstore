@@ -853,6 +853,10 @@ body {
 	flex: 1;
 }
 
+.full-list .authors-list li {
+	cursor: pointer;
+}
+
 .full-list .pagination {
 	margin: 20px 0;
 	display: flex;
