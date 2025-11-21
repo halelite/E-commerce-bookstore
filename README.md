@@ -36,14 +36,13 @@ This e-commerce bookstore is a **full-stack** application with the following fea
 
 ### Links
 
-- Solution URL: [Solution URL](https://github.com/halelite/E-commerce-bookstore.git)
-- Live Site URL: [Site URL](https://bookland-store.netlify.app/)
+- Live Demo: [Site URL](https://bookland-store.netlify.app/)
+- GitHub Repository: [Solution URL](https://github.com/halelite/E-commerce-bookstore.git)
 
 ## My process
 
 ### Built with
 
-- HTML5 markup
 - CSS custom properties
 - Responsive web design
 - [React Router](https://reactrouter.com/) - Routing library
