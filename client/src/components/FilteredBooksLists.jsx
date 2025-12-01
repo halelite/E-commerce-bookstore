@@ -1,6 +1,7 @@
 import Filters from "./Filters.jsx";
 import star from "../assets/icons/icon-star.svg";
 import addIcon from "../assets/icons/add_24dp_FILL0_wght300_GRAD0_opsz24.svg";
+import deleteIcon from "../assets/icons/delete_black.svg";
 import { useNavigate } from "react-router";
 import { useCart } from "../context/cart-context.jsx";
 
@@ -15,7 +16,7 @@ const FilteredBooksLists = ({
 	handleAuthorChange,
 }) => {
 	const navigate = useNavigate();
-	const { addToCart } = useCart();
+	const { addToCart, cart, deleteCartItem } = useCart();
 
 	function handleAddToCart(bookData) {
 		addToCart(bookData);
@@ -65,15 +66,28 @@ const FilteredBooksLists = ({
 											<span className="currency">تومان</span>
 										</span>
 									</div>
-									<button
-										onClick={(e) => {
-											e.stopPropagation();
-											handleAddToCart(book);
-										}}
-										className="add-to-cart"
-									>
-										<img src={addIcon} alt="plus" />
-									</button>
+									{cart?.length > 0 &&
+									cart.some((item) => item.bookId === book._id) ? (
+										<button
+											onClick={(e) => {
+												e.stopPropagation();
+												deleteCartItem(book._id);
+											}}
+											className="delete-from-cart"
+										>
+											<img src={deleteIcon} alt="delete" />
+										</button>
+									) : (
+										<button
+											onClick={(e) => {
+												e.stopPropagation();
+												handleAddToCart(book);
+											}}
+											className="add-to-cart"
+										>
+											<img src={addIcon} alt="plus" />
+										</button>
+									)}
 								</div>
 							</div>
 						</div>

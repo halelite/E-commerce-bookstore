@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import forward from "../assets/icons/arrow_forward_ios_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import back from "../assets/icons/arrow_back_ios_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import addIcon from "../assets/icons/add_24dp_FILL0_wght300_GRAD0_opsz24.svg";
+import deleteIcon from "../assets/icons/delete_black.svg";
 import { useCart } from "../context/cart-context";
 import go from "../assets/icons/keyboard_backspace_24dp_FILL0_wght300_GRAD0_opsz24.svg";
 import star from "../assets/icons/icon-star.svg";
@@ -14,11 +15,13 @@ function NewBookLists() {
 	const navigate = useNavigate();
 	const swiperRef = useRef(null);
 	const [books, setBooks] = useState([]);
-	const { addToCart } = useCart();
+	const { addToCart, cart, deleteCartItem } = useCart();
 	const [slidesPerView, setSlidesPerView] = useState(1);
 	const [isLoading, setIsLoading] = useState(true);
 	const [isBeginning, setIsBeginning] = useState(true);
 	const [isEnd, setIsEnd] = useState(false);
+
+	console.log("cart >>>>>", cart);
 
 	function handleAddtoCart(bookData) {
 		/* dispatch({
@@ -231,15 +234,28 @@ function NewBookLists() {
 														<span className="currency">تومان</span>
 													</span>
 												</div>
-												<button
-													onClick={(e) => {
-														e.stopPropagation();
-														handleAddtoCart(book);
-													}}
-													className="add-to-cart"
-												>
-													<img src={addIcon} alt="plus" />
-												</button>
+												{cart?.length > 0 &&
+												cart.some((item) => item.bookId === book._id) ? (
+													<button
+														onClick={(e) => {
+															e.stopPropagation();
+															deleteCartItem(book._id);
+														}}
+														className="delete-from-cart"
+													>
+														<img src={deleteIcon} alt="delete" />
+													</button>
+												) : (
+													<button
+														onClick={(e) => {
+															e.stopPropagation();
+															handleAddtoCart(book);
+														}}
+														className="add-to-cart"
+													>
+														<img src={addIcon} alt="plus" />
+													</button>
+												)}
 											</div>
 										</div>
 									</SwiperSlide>

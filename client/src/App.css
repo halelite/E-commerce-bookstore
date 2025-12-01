@@ -759,9 +759,24 @@ body {
 	cursor: pointer;
 }
 
+.slider-item .item-info .delete-from-cart {
+	width: 32px;
+	height: 32px;
+	background-color: white;
+	border: 1px solid darkred;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
 .slider-item .item-info .add-to-cart img {
 	width: 30px;
 	height: 30px;
+	margin: 0 auto;
+}
+
+.slider-item .item-info .delete-from-cart img {
+	width: 20px;
+	height: 20px;
 	margin: 0 auto;
 }
 
